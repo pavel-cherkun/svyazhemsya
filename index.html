@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0c">
+<title>Свяжемся — прототипы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--m:#FF3495;--m2:#ff7ab8;--m3:#b5135f;--bg:#0b0b0c;--card:#17171a;--card2:#1f1f23;--ink:#fff;--mute:#a3a3aa;--line:#2b2b31;--U:Unbounded,'Arial Black',sans-serif;--I:Inter,system-ui,-apple-system,Arial,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 var(--I)}
+body{min-height:100dvh;overscroll-behavior-y:none}
+button,input{font:inherit;color:inherit}
+.knit{height:16px;background:
+ radial-gradient(ellipse 7px 9px at 28% 50%,var(--m2) 58%,transparent 62%) 0 0/14px 16px,
+ radial-gradient(ellipse 7px 9px at 72% 50%,var(--m) 58%,transparent 62%) 0 0/14px 16px,var(--m3)}
+.wrap{max-width:480px;margin:0 auto;padding:0 16px 40px}
+header.top{padding:22px 0 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.brand{font:800 30px/1 var(--U);letter-spacing:-.01em}
+.brand small{display:block;font:500 12px/1.4 var(--I);color:var(--mute);letter-spacing:0;margin-top:8px}
+.chip{flex:none;border:1px solid var(--line);border-radius:99px;padding:7px 12px;font-size:12px;color:var(--mute);background:var(--card);cursor:pointer;white-space:nowrap}
+.chip b{color:var(--ink);font-weight:600}
+.lead{color:var(--mute);font-size:14px;margin:6px 0 18px}
+.cards{display:grid;gap:12px}
+.card{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 16px 14px;cursor:pointer;position:relative;overflow:hidden}
+.card:active{transform:scale(.985)}
+.card h3{margin:0 0 4px;font:800 17px/1.2 var(--U)}
+.card p{margin:0;color:var(--mute);font-size:14px}
+.card .tag{position:absolute;top:14px;right:14px;font:600 11px var(--I);color:var(--m);border:1px solid var(--m);border-radius:99px;padding:2px 8px}
+.card .sw{height:10px;margin:-16px -16px 12px;background:
+ radial-gradient(ellipse 5px 6px at 28% 50%,var(--c1) 58%,transparent 62%) 0 0/10px 10px,
+ radial-gradient(ellipse 5px 6px at 72% 50%,var(--c2) 58%,transparent 62%) 0 0/10px 10px,var(--c3)}
+.foot{margin-top:22px;color:#6d6d74;font-size:12px;text-align:center}
+.screen{display:none}.screen.on{display:block}
+.bar{display:flex;align-items:center;gap:10px;padding:16px 0 10px}
+.back{border:0;background:var(--card);border-radius:12px;width:40px;height:40px;font-size:20px;cursor:pointer;flex:none}
+.bar h2{margin:0;font:800 19px/1.15 var(--U)}
+.sub{color:var(--mute);font-size:14px;margin:0 0 14px}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px 16px;font-weight:600;background:var(--m);color:#fff;cursor:pointer;text-align:center;margin-top:10px}
+.btn.ghost{background:var(--card2);color:var(--ink)}
+.btn.small{display:inline-block;width:auto;padding:9px 14px;font-size:14px;margin:0}
+.btn:disabled{opacity:.4}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>.btn{flex:1;min-width:120px}
+.seg{display:flex;background:var(--card);border-radius:12px;padding:4px;gap:4px;margin:10px 0}
+.seg button{flex:1;border:0;background:none;border-radius:9px;padding:9px 4px;font-size:13px;color:var(--mute);cursor:pointer}
+.seg button.on{background:var(--card2);color:var(--ink);font-weight:600}
+canvas{display:block;touch-action:none}
+.stage{display:flex;justify-content:center;margin:8px 0}
+.note{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;color:var(--mute);margin:12px 0}
+.note b{color:var(--ink)}
+.big{font:800 34px/1 var(--U);margin:4px 0}
+.big span{font-size:16px;color:var(--mute);font-family:var(--I);font-weight:500}
+.kv{display:flex;justify-content:space-between;font-size:14px;padding:6px 0;border-bottom:1px solid var(--line)}
+.kv:last-child{border:0}
+.kv.me{color:var(--m);font-weight:600}
+.route{position:relative;margin:14px 0 6px;padding-left:18px}
+.route::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.stop{position:relative;font-size:14px;padding:3px 0;color:var(--mute)}
+.stop::before{content:"";position:absolute;left:-17px;top:9px;width:10px;height:10px;border-radius:50%;background:var(--line)}
+.stop.done{color:var(--ink)}.stop.done::before{background:var(--m)}
+.stop.next::before{background:var(--bg);border:2px solid var(--m);width:6px;height:6px}
+.scarfwrap{display:flex;gap:16px;align-items:flex-start}
+.scarfwrap .info{flex:1;min-width:0}
+input.txt{width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:16px;outline:none}
+input.txt:focus{border-color:var(--m)}
+label.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--mute);margin:12px 0 4px}
+label.chk input{margin-top:2px;accent-color:var(--m);width:18px;height:18px;flex:none}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.sheet.on{display:flex}
+.sheet .in{background:#141417;border-radius:22px 22px 0 0;width:100%;max-width:480px;padding:22px 16px calc(20px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.sheet h3{margin:0 0 6px;font:800 18px/1.2 var(--U)}
+.sheet p{margin:0 0 12px;color:var(--mute);font-size:14px}
+.hint{font-size:12px;color:#77777e;margin-top:8px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,30px);opacity:0;background:#fff;color:#111;padding:11px 16px;border-radius:12px;font-size:14px;font-weight:500;transition:.25s;z-index:60;max-width:calc(100% - 32px);text-align:center;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.pop{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:55;padding:16px}
+.pop.on{display:flex}
+.pop .in{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 18px;max-width:360px;width:100%;text-align:center}
+.pop .in h3{font:800 20px/1.2 var(--U);margin:6px 0 8px}
+.pop .in p{color:var(--mute);margin:0 0 6px;font-size:15px}
+.thbox{position:relative;margin:6px auto 0;user-select:none;-webkit-user-select:none}
+.reveal{position:absolute;left:0;top:0;right:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;background:#fff;color:#111;border-radius:6px}
+.reveal .pr{font:800 19px/1.25 var(--U);margin-bottom:14px}
+.reveal .of{background:var(--m);color:#fff;border-radius:12px;padding:10px 14px;font-weight:600;font-size:15px}
+.reveal .lb{font-size:12px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.1em}
+#th-cv{position:absolute;left:0;top:0}
+.thhint{text-align:center;color:var(--mute);font-size:13px;margin-top:4px}
+.patches{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}
+.patches::-webkit-scrollbar{display:none}
+.patch{flex:none;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:8px 10px;font-size:12px;cursor:pointer;text-align:center;min-width:76px}
+.patch.on{border-color:var(--m);background:#2a1220}
+.patch canvas{margin:0 auto 4px}
+.colors{display:flex;gap:8px;margin:6px 0}
+.colors button{width:32px;height:32px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+.colors button.on{border-color:#fff}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.gal{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center;font-size:13px}
+.gal canvas{margin:0 auto 6px}
+.gal.me{border-color:var(--m)}
+.vote{border:0;background:var(--card2);border-radius:10px;padding:7px 10px;font-size:13px;cursor:pointer;margin-top:6px;width:100%}
+.vote.on{background:var(--m);color:#fff}
+.mt{margin-top:14px}
+.legend{font-size:12px;color:var(--mute);margin-top:6px;text-align:center}
+</style>
+</head>
+<body>
+<div class="knit"></div>
+<div class="wrap">
+
+<!-- МЕНЮ -->
+<section class="screen on" id="s-menu">
+ <header class="top">
+  <div class="brand">Свяжемся<small>Т2 · Новый год 2027 · прототипы лендинга</small></div>
+  <button class="chip" id="chip" onclick="App.phoneChip()">номер не введён</button>
+ </header>
+ <p class="lead">Пять механик. В каждой номер — часть игры, а не анкета. Выберите любую.</p>
+ <div class="cards">
+  <button class="card" onclick="App.go('pattern')"><div class="sw" style="--c1:#fff;--c2:#ffd0e5;--c3:#FF3495"></div><span class="tag">600</span><h3>Узор твоего номера</h3><p>Цифры номера становятся вязаным узором. Двух одинаковых нет.</p></button>
+  <button class="card" onclick="App.go('scarf')"><div class="sw" style="--c1:#FF3495;--c2:#ff7ab8;--c3:#3a3a40"></div><span class="tag">600</span><h3>Общий шарф</h3><p>Каждый клик — ряд. Вся страна вяжет один шарф от Калининграда до Владивостока.</p></button>
+  <button class="card" onclick="App.go('thread')"><div class="sw" style="--c1:#fff;--c2:#ddd;--c3:#b5135f"></div><span class="tag">400</span><h3>Вытяни нитку</h3><p>Тяни нитку — полотно распускается, под ним предсказание и подарок.</p></button>
+  <button class="card" onclick="App.go('card')"><div class="sw" style="--c1:#ffd0e5;--c2:#FF3495;--c3:#141416"></div><span class="tag">800</span><h3>Вязаная открытка</h3><p>Фото превращается в вязаный портрет, пожелание — в надпись на свитере.</p></button>
+  <button class="card" onclick="App.go('ugly')"><div class="sw" style="--c1:#c8262f;--c2:#fff;--c3:#1f7a4a"></div><span class="tag">800</span><h3>Уродливый свитер Т2</h3><p>Собери свитер из мобильных бед. Лучшие свяжут по-настоящему.</p></button>
+ </div>
+ <p class="foot">Прототип Oxygen для Т2. Номера никуда не отправляются, SMS не приходят: всё считается в этом браузере.<br>Цифры на карточках — ценовой уровень, тыс. ₽.</p>
+</section>
+
+<!-- УЗОР НОМЕРА -->
+<section class="screen" id="s-pattern">
+ <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Узор твоего номера</h2></div>
+ <p class="sub">Каждая цифра — свой мотив: снежинка, ёлка, сердце… Порядок цифр задаёт порядок рядов, как в жаккардовом свитере.</p>
+ <div id="pt-empty"><button class="btn" onclick="App.needPhone(()=>Pattern.render())">Ввести номер и связать узор</button></div>
+ <div id="pt-main" style="display:none">
+  <div class="seg" id="pt-seg"><button data-v="sweater" class="on">Свитер</button><button data-v="scarf">Шарф</button><button data-v="mitten">Варежка</button><button data-v="flat">Полотно</button></div>
+  <div class="stage"><canvas id="pt-cv"></canvas></div>
+  <div class="legend" id="pt-legend"></div>
+  <div class="note" id="pt-gift"></div>
+  <div class="row"><button class="btn ghost" onclick="Pattern.pair()">Сложить с парным номером</button><button class="btn ghost" onclick="App.save('pt-cv','uzor-nomera')">Сохранить</button></div>
+  <button class="btn" onclick="App.sendTo('узор', 'Я связал(а) тебе узор из своего номера. Свяжи свой — сложим половинки.')">Отправить близкому</button>
+ </div>
+</section>
+
+<!-- ОБЩИЙ ШАРФ -->
+<section class="screen" id="s-scarf">
+ <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Общий шарф</h2></div>
+ <div class="scarfwrap">
+  <canvas id="sc-cv" onpointerdown="Scarf.knit()"></canvas>
+  <div class="info">
+   <div style="color:var(--mute);font-size:13px">Связаны</div>
+   <div class="big" id="sc-km">2 418<span> км</span></div>
+   <div style="font-size:13px;color:var(--mute)" id="sc-mine">Твоих рядов: 0</div>
+   <button class="btn" onclick="Scarf.knit()">+ ряд</button>
+   <div class="note" id="sc-state" style="font-size:13px"></div>
+  </div>
+ </div>
+ <div class="row mt">
+  <button class="btn ghost" id="sc-find" onclick="Scarf.find()">Найди свой ряд</button>
+  <button class="btn ghost" onclick="App.sendTo('ряд','Я связал(а) тебе ряд в общем шарфе. Довяжешь?')">Довязать близкому</button>
+ </div>
+ <h3 class="mt" style="font:800 15px var(--U);margin-bottom:0">Шарф тянется по карте</h3>
+ <div class="route" id="sc-route"></div>
+ <button class="btn ghost small" onclick="Scarf.boost()">Ускорить до следующего города (демо)</button>
+ <h3 class="mt" style="font:800 15px var(--U);margin-bottom:6px">Города</h3>
+ <div id="sc-cities"></div>
+ <p class="hint">Город в проде определяется по коду номера, в прототипе — условно. В демо твой ряд = 200 м, чтобы этапы было видно.</p>
+</section>
+
+<!-- ВЫТЯНИ НИТКУ -->
+<section class="screen" id="s-thread">
+ <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Вытяни нитку</h2></div>
+ <p class="sub">Из полотна торчит нитка. Тяни её вниз — посмотрим, что под вязкой. Одна нитка в день.</p>
+ <div class="thbox" id="th-box">
+  <div class="reveal" id="th-rev"><div class="lb">2027</div><div class="pr" id="th-pr"></div><div class="lb">тебе выпало</div><div class="of" id="th-of"></div></div>
+  <canvas id="th-cv"></canvas>
+ </div>
+ <div class="thhint" id="th-hint">↓ тяни нитку ↓</div>
+ <div id="th-after" style="display:none">
+  <button class="btn" onclick="Thread.claim()">Забрать подарок</button>
+ </div>
+ <button class="btn ghost small mt" onclick="Thread.reset(true)">Ещё нитка (в прототипе можно)</button>
+</section>
+
+<!-- ОТКРЫТКА -->
+<section class="screen" id="s-card">
+ <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Вязаная открытка</h2></div>
+ <p class="sub">Фото станет вязаным портретом, текст — надписью, как на новогоднем свитере.</p>
+ <input class="txt" id="cd-txt" maxlength="40" placeholder="Пожелание, до 40 знаков" value="Мама, я приеду">
+ <div class="row" style="margin-top:8px">
+  <label class="btn ghost" style="margin:0;flex:1">Добавить фото<input type="file" accept="image/*" id="cd-file" hidden></label>
+  <button class="btn ghost" style="margin:0;flex:1" onclick="Card.clearPhoto()">Без фото</button>
+ </div>
+ <div class="stage mt"><canvas id="cd-cv"></canvas></div>
+ <div class="row"><button class="btn ghost" onclick="App.save('cd-cv','vyazanaya-otkrytka')">Сохранить</button></div>
+ <button class="btn" onclick="App.sendTo('открытку','Тебе вязаная открытка. Ответить можно только своей.')">Отправить</button>
+</section>
+
+<!-- УРОДЛИВЫЙ СВИТЕР -->
+<section class="screen" id="s-ugly">
+ <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Уродливый свитер Т2</h2></div>
+ <p class="sub">Вместо оленей — мобильные беды, от которых защищает Т2. Выбери нашивку и нажми на свитер.</p>
+ <div class="seg" id="ug-base"><button data-v="classic" class="on">Классика</button><button data-v="t2">Т2</button><button data-v="number">Мой номер</button></div>
+ <div class="patches" id="ug-patches"></div>
+ <div class="colors" id="ug-colors"></div>
+ <div class="stage"><canvas id="ug-cv"></canvas></div>
+ <div class="row"><button class="btn ghost" onclick="Ugly.undo()">Отменить</button><button class="btn ghost" onclick="Ugly.clear()">Очистить</button><button class="btn ghost" onclick="App.save('ug-cv','urodlivyj-sviter')">Сохранить</button></div>
+ <button class="btn" onclick="Ugly.submit()">На голосование</button>
+ <div id="ug-gal" style="display:none">
+  <div class="note"><b>Лучшие свитера свяжут по-настоящему.</b> Победители получат свой. Голос — по номеру: один номер, один голос.</div>
+  <div class="gallery" id="ug-gallery"></div>
+ </div>
+</section>
+
+</div>
+
+<!-- лист ввода номера -->
+<div class="sheet" id="sheet" onclick="if(event.target===this)App.closeSheet()">
+ <div class="in">
+  <div id="sh-1">
+   <h3 id="sh-title">Ваш номер</h3>
+   <p id="sh-text"></p>
+   <input class="txt" id="sh-phone" type="tel" inputmode="tel" autocomplete="off" placeholder="+7 9__ ___-__-__">
+   <label class="chk" id="sh-consent-l"><input type="checkbox" id="sh-consent" checked> Согласен(на) на получение информации от Т2 (в прототипе ничего не отправляется)</label>
+   <button class="btn" id="sh-go">Получить код</button>
+   <p class="hint">Прототип: номер остаётся в этом браузере.</p>
+  </div>
+  <div id="sh-2" style="display:none">
+   <h3>Код из SMS</h3>
+   <p id="sh-sent"></p>
+   <input class="txt" id="sh-code" type="tel" inputmode="numeric" maxlength="4" placeholder="····">
+   <button class="btn" id="sh-ok">Подтвердить</button>
+   <p class="hint">В прототипе SMS не приходит — подойдёт любой код, например 2027.</p>
+  </div>
+ </div>
+</div>
+<div class="pop" id="pop" onclick="if(event.target===this)App.closePop()"><div class="in"><div id="pop-body"></div><button class="btn" onclick="App.closePop()">Хорошо</button></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const C = {m:'#FF3495',m2:'#ff7ab8',m3:'#b5135f',w:'#f4eff1',k:'#18181b',g:'#5d5d64',g2:'#44444a',p:'#ffc4de',r:'#c8262f',gr:'#1f7a4a',y:'#f2c14e',b:'#2f5fb3'};
+const store = {
+  get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } },
+  set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} }
+};
+
+/* ---------- вязка: спрайт петли и отрисовка сетки ---------- */
+function shade(hex,a){ let n=parseInt(hex.slice(1),16), r=n>>16, g=n>>8&255, b=n&255; const t=a<0?0:255, p=Math.abs(a);
+  r=Math.round(r+(t-r)*p); g=Math.round(g+(t-g)*p); b=Math.round(b+(t-b)*p); return '#'+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1); }
+const SPR = {};
+function sprite(color,w,h){ w=Math.max(2,Math.round(w)); h=Math.max(2,Math.round(h)); const k=color+w+'x'+h; if(SPR[k]) return SPR[k];
+  const c=document.createElement('canvas'); c.width=w; c.height=h; const x=c.getContext('2d');
+  for(const sx of [-1,1]){ x.save(); x.translate(w*(0.5+sx*0.22),h*0.5); x.rotate(sx*0.45);
+    const g=x.createLinearGradient(-w*0.22,0,w*0.22,0); g.addColorStop(0,shade(color,-0.32)); g.addColorStop(0.5,shade(color,0.14)); g.addColorStop(1,shade(color,-0.22));
+    x.fillStyle=g; x.beginPath(); x.ellipse(0,0,w*0.24,h*0.58,0,0,Math.PI*2); x.fill(); x.restore(); }
+  return SPR[k]=c; }
+function setupCanvas(cv,W,H){ const dpr=Math.min(2,window.devicePixelRatio||1); cv.style.width=W+'px'; cv.style.height=H+'px';
+  cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); return {x,dpr}; }
+function drawGrid(x,grid,cw,ch,dpr,rowsMax){ const R=Math.min(grid.length,rowsMax==null?grid.length:rowsMax);
+  for(let r=0;r<R;r++) for(let c=0;c<grid[r].length;c++){ const col=grid[r][c]; if(!col) continue; x.fillStyle=shade(col,-0.55); x.fillRect(c*cw,r*ch,cw+0.6,ch+0.6); }
+  for(let r=0;r<R;r++) for(let c=0;c<grid[r].length;c++){ const col=grid[r][c]; if(!col) continue; x.drawImage(sprite(col,cw*dpr,ch*dpr),c*cw,r*ch-ch*0.05,cw,ch); } }
+function knitCanvas(cv,grid,W){ const cols=grid[0].length, cw=W/cols, ch=cw*0.8, H=Math.ceil(ch*grid.length+2);
+  const {x,dpr}=setupCanvas(cv,W,H); x.clearRect(0,0,W,H); drawGrid(x,grid,cw,ch,dpr); return {cw,ch,W,H}; }
+const vw = () => Math.min(window.innerWidth-32, 440);
+
+/* ---------- мотивы цифр ---------- */
+const MOT = [
+ ['1001001','0101010','0011100','1111111','0011100','0101010','1001001'], // 0 снежинка
+ ['0001000','0011100','0111110','0011100','0111110','1111111','0001000'], // 1 ёлка
+ ['0110110','1111111','1111111','0111110','0011100','0001000','0000000'], // 2 сердце
+ ['0001000','0001000','1111111','0111110','0011100','0110110','0100010'], // 3 звезда
+ ['1010101','0111110','0011100','1111100','1111110','0100100','0100100'], // 4 олень
+ ['0001000','0010100','0101010','1010101','0101010','0010100','0001000'], // 5 ромб
+ ['1000001','0100010','0010100','1001001','0100010','0010100','0001000'], // 6 волна
+ ['0001000','0011100','0011100','0111110','0111110','1111111','0001000'], // 7 колокольчик
+ ['0100010','0010100','1111111','1001001','1111111','1001001','1111111'], // 8 подарок
+ ['0000001','0000011','0000111','0001111','0011111','0111111','1111111']  // 9 сеть
+];
+const MNAME=['снежинка','ёлка','сердце','звезда','олень','ромб','волна','колокольчик','подарок','сеть'];
+const BANDS=[[C.m,C.w],[C.k,C.m2],[C.w,C.m],[C.m3,C.p]];
+function numberPattern(ph,cols){ const rows=[]; const d=ph.split('').map(Number);
+  const sep=i=>{ for(let k=0;k<2;k++){ const row=[]; for(let c=0;c<cols;c++) row.push((c+k+i)%2?C.k:C.m2); rows.push(row); } };
+  d.forEach((dg,i)=>{ const [bg,fg]=BANDS[i%4], m=MOT[dg]; sep(i); rows.push(Array(cols).fill(bg));
+    for(let y=0;y<7;y++){ const row=[]; for(let c=0;c<cols;c++){ const tc=(c+(i%2?4:0))%9; row.push(tc<7&&m[y][tc]==='1'?fg:bg); } rows.push(row); }
+    rows.push(Array(cols).fill(bg)); });
+  sep(10); return rows; }
+
+/* ---------- формы ---------- */
+function shapeAt(kind,c,r,W,H){ const u=(c+.5)/W, v=(r+.5)/H;
+  if(kind==='sweater'){ if(v<0.05||v>0.97) return 0; const nk=Math.abs(u-0.5); if(nk<0.13&&v<0.05+0.11*Math.sqrt(Math.max(0,1-(nk/0.13)**2))) return 0;
+    if(u>0.22&&u<0.78) return v>0.9?2:1; const su=u<0.5?u:1-u;
+    const ax=0.24, ay=0.07, bx=0.06, by=0.8, dx=bx-ax, dy=by-ay, t=((su-ax)*dx+(v-ay)*dy)/(dx*dx+dy*dy);
+    if(t<0||t>1) return 0; const d=Math.hypot(su-(ax+dx*t),v-(ay+dy*t)); if(d<0.085) return t>0.88?2:1; return 0; }
+  if(kind==='scarf'){ if(u<0.27||u>0.73) return 0; if(v<0.02) return 0; if(v>0.9) return (c%3===0&&v<0.99)?3:0; return 1; }
+  if(kind==='mitten'){ const pa=((u-0.56)/0.28)**2+((v-0.4)/0.36)**2<=1; const th=((u-0.25)/0.1)**2+((v-0.5)/0.17)**2<=1;
+    const cuff=v>0.72&&v<0.95&&Math.abs(u-0.56)<0.26; if(cuff) return 2; return (pa||th)&&v<=0.76?1:0; }
+  return 1; }
+function fillShape(kind,W,H,colorAt){ const g=[]; for(let r=0;r<H;r++){ const row=[]; for(let c=0;c<W;c++){ const s=shapeAt(kind,c,r,W,H);
+  row.push(s===0?null:s===2?(c%2?C.m3:shade(C.m3,-0.15)):s===3?C.m2:colorAt(c,r)); } g.push(row); } return g; }
+
+/* ---------- текст в петли ---------- */
+function textBitmap(lines,lineRows=8,font='800 30px Unbounded, Arial Black, sans-serif'){ const sc=4;
+  const t=document.createElement('canvas').getContext('2d'); t.font=font; const w=Math.max(...lines.map(l=>t.measureText(l).width));
+  const cols=Math.ceil(w/sc)+2, rows=lines.length*lineRows; const cv=document.createElement('canvas'); cv.width=cols*sc; cv.height=rows*sc;
+  const x=cv.getContext('2d'); x.font=font; x.fillStyle='#fff'; x.textAlign='center'; x.textBaseline='middle';
+  lines.forEach((l,i)=>x.fillText(l,cv.width/2,(i+0.5)*lineRows*sc+sc*0.4));
+  const d=x.getImageData(0,0,cv.width,cv.height).data, out=[];
+  for(let r=0;r<rows;r++){ let s=''; for(let c=0;c<cols;c++){ let a=0; for(let yy=0;yy<sc;yy++) for(let xx=0;xx<sc;xx++) a+=d[((r*sc+yy)*cv.width+(c*sc+xx))*4+3]; s+=a/(sc*sc*255)>0.38?'1':'0'; } out.push(s); }
+  return out; }
+function wrapLines(text,maxChars){ const words=text.trim().split(/\s+/), lines=[]; let cur='';
+  for(const w of words){ if((cur+' '+w).trim().length>maxChars&&cur){ lines.push(cur); cur=w; } else cur=(cur+' '+w).trim(); }
+  if(cur) lines.push(cur); return lines.slice(0,3); }
+
+/* ---------- приложение ---------- */
+const App = {
+  phone: (s=>/^9\d{9}$/.test(s||'')?s:null)(store.get('t2ng_phone')),
+  fmt(p){ return `+7 ${p.slice(0,3)} ${p.slice(3,6)}-${p.slice(6,8)}-${p.slice(8)}` },
+  go(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on')); $('#s-'+id).classList.add('on'); window.scrollTo(0,0);
+    ({pattern:()=>Pattern.render(),scarf:()=>Scarf.open(),thread:()=>Thread.reset(false),card:()=>Card.render(),ugly:()=>Ugly.open()})[id]?.(); },
+  updChip(){ $('#chip').innerHTML=this.phone?`<b>${this.fmt(this.phone)}</b>`:'номер не введён'; },
+  phoneChip(){ this.askPhone({title:'Ваш номер',text:'Номер нужен в каждой механике: из него узор, по нему город, на него подарок.'},()=>{}); },
+  needPhone(cb,text){ if(this.phone) return cb(); this.askPhone({title:'Ваш номер',text:text||'Без номера не получится: он — часть механики.'},cb); },
+  parse(v){ let d=(v||'').replace(/\D/g,''); if(d.length===11&&(d[0]==='7'||d[0]==='8')) d=d.slice(1); return /^9\d{9}$/.test(d)?d:null; },
+  askPhone({title,text,recipient},cb){
+    $('#sh-title').textContent=title; $('#sh-text').textContent=text||''; $('#sh-phone').value=''; $('#sh-code').value='';
+    $('#sh-consent-l').style.display=recipient?'none':''; $('#sh-go').textContent=recipient?'Отправить':'Получить код';
+    $('#sh-1').style.display=''; $('#sh-2').style.display='none'; $('#sheet').classList.add('on'); setTimeout(()=>$('#sh-phone').focus(),200);
+    $('#sh-go').onclick=()=>{ const p=this.parse($('#sh-phone').value); if(!p) return this.toast('Номер вида +7 9XX XXX-XX-XX');
+      if(recipient){ this.closeSheet(); return cb(p); }
+      if(!$('#sh-consent').checked) return this.toast('Без согласия не получится — в проде это требование закона');
+      $('#sh-sent').textContent='Отправили код на '+this.fmt(p); $('#sh-1').style.display='none'; $('#sh-2').style.display=''; setTimeout(()=>$('#sh-code').focus(),150);
+      $('#sh-ok').onclick=()=>{ if(!/^\d{4}$/.test($('#sh-code').value)) return this.toast('Четыре цифры, например 2027');
+        this.phone=p; store.set('t2ng_phone',p); this.updChip(); this.closeSheet(); cb(p); }; };
+  },
+  closeSheet(){ $('#sheet').classList.remove('on'); },
+  sendTo(what,msg){ this.needPhone(()=>this.askPhone({title:'Кому отправить '+what,text:'Номер близкого. Ему придёт SMS: «'+msg+'»',recipient:true},p=>{
+    this.pop(`<div style="font-size:40px">✉️</div><h3>Ушло на ${this.fmt(p).slice(0,9)}··</h3><p>«${msg}»</p><p style="font-size:13px">В проде получатель открывает ссылку, делает своё и вводит свой номер. Так каждый второй участник приходит по приглашению.</p>`); })); },
+  pop(html){ $('#pop-body').innerHTML=html; $('#pop').classList.add('on'); },
+  closePop(){ $('#pop').classList.remove('on'); },
+  toast(t){ const e=$('#toast'); e.textContent=t; e.classList.add('on'); clearTimeout(this._t); this._t=setTimeout(()=>e.classList.remove('on'),2200); },
+  async save(id,name){ const cv=$('#'+id);
+    try{ const blob=await new Promise(r=>cv.toBlob(r,'image/png')); const f=new File([blob],name+'.png',{type:'image/png'});
+      if(navigator.canShare&&navigator.canShare({files:[f]})){ await navigator.share({files:[f],title:'Свяжемся'}); return; } }catch(e){}
+    const a=document.createElement('a'); a.href=cv.toDataURL('image/png'); a.download=name+'.png'; a.click(); },
+  gift(p){ const s=p.split('').reduce((a,b)=>a+ +b,0); return ['+5 ГБ на месяц','100 минут на звонки близким','подписка на месяц','скидка на аксессуар в салоне','вязаная игрушка с ёлки в салоне'][s%5]; },
+  city(p){ const L=['Москва','Санкт-Петербург','Казань','Екатеринбург','Новосибирск','Краснодар','Нижний Новгород','Самара','Пермь','Владивосток']; return L[p.split('').reduce((a,b)=>a*7+ +b,3)%L.length]; }
+};
+
+/* ---------- 1. Узор номера ---------- */
+const Pattern = {
+  kind:'sweater', pairP:null,
+  render(){ const p=App.phone; $('#pt-empty').style.display=p?'none':''; $('#pt-main').style.display=p?'':'none'; if(!p) return;
+    const W=56,H=this.kind==='flat'?0:64, A=numberPattern(p,W), B=this.pairP?numberPattern(this.pairP,W):null;
+    let grid; if(this.kind==='flat'){ grid=A.map((row,r)=>B?row.map((c,i)=>i<W/2?c:B[r][i]):row); }
+    else grid=fillShape(this.kind,W,H,(c,r)=>{ const P=B&&c>=W/2?B:A; return P[(r+6)%P.length][c]; });
+    knitCanvas($('#pt-cv'),grid,this.kind==='flat'?Math.min(vw(),300):vw());
+    const d=p.split('').map(Number); $('#pt-legend').textContent=d.map(x=>x+' '+MNAME[x]).join(' · ');
+    $('#pt-gift').innerHTML=(B?`Номера сложились в один ${this.kind==='mitten'?'узор':'свитер'}: слева ${App.fmt(p)}, справа ${App.fmt(this.pairP)}.<br><br>`:'')+`По цифрам твоего номера выпало: <b>${App.gift(p)}</b>. <span style="font-size:12px">Как гадание по номеру в «Чёрную пятницу» Т2.</span>`; },
+  pair(){ App.askPhone({title:'Парный номер',text:'Номер близкого или второй номер из пары (…51 и …52). Узоры сложатся в один.',recipient:true},p=>{ this.pairP=p; this.render(); }); }
+};
+$('#pt-seg').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; $('#pt-seg').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); Pattern.kind=b.dataset.v; Pattern.render(); };
+
+/* ---------- 2. Общий шарф ---------- */
+const STOPS=[['Калининград',0],['Москва',1250],['Казань',2050],['Екатеринбург',2950],['Новосибирск',4550],['Иркутск',6400],['Владивосток',10400]];
+const Scarf = {
+  km:2418.3, mine:+(store.get('t2ng_rows')||0), others:null, cities:null, timer:null, reached:null,
+  init(){ if(this.others) return; const fake=['9271020270','9531234517','9008765432','9645550123','9112233445'];
+    this.others=[]; for(let i=0;i<46;i++){ const P=numberPattern(fake[i%5],16); this.others.push(P[(i*7)%P.length]); }
+    this.cities={'Москва':612.4,'Санкт-Петербург':401.9,'Казань':288.1,'Екатеринбург':247.6,'Новосибирск':203.3,'Краснодар':190.2,'Нижний Новгород':151.8,'Самара':120.5,'Пермь':101.7,'Владивосток':100.8};
+    this.reached=STOPS.filter(s=>s[1]<=this.km).length; },
+  open(){ this.init(); this.draw(); clearInterval(this.timer); this.timer=setInterval(()=>{ if(!$('#s-scarf').classList.contains('on')) return clearInterval(this.timer); this.km+=0.11; this.upd(); },400); },
+  rows(){ const P=App.phone?numberPattern(App.phone,16):null; const mine=[]; for(let i=0;i<this.mine;i++) mine.push(P?P[i%P.length]:Array.from({length:16},(_,c)=>(c+i)%2?C.g:C.g2)); return this.others.concat(mine).slice(-44); },
+  draw(){ const W=Math.min(150,vw()*0.38); knitCanvas($('#sc-cv'),this.rows(),W); this.upd(); },
+  knit(){ this.mine++; store.set('t2ng_rows',this.mine); this.km+=0.2; if(App.phone) this.cities[App.city(App.phone)]+=0.2; this.draw(); if(navigator.vibrate) navigator.vibrate(8); },
+  boost(){ const next=STOPS.find(s=>s[1]>this.km); if(!next) return App.toast('Шарф уже во Владивостоке'); this.km=next[1]+0.5; this.upd(); },
+  upd(){ $('#sc-km').innerHTML=Math.floor(this.km).toLocaleString('ru-RU')+'<span> км</span>';
+    $('#sc-mine').textContent='Твоих рядов: '+this.mine;
+    $('#sc-state').innerHTML=App.phone?`Твои ряды — узор номера ${App.fmt(App.phone).slice(-5)}. Петли идут в зачёт городу <b>${App.city(App.phone)}</b>.`:`<b>Без номера твои ряды серые и ничьи.</b> <a href="#" onclick="App.needPhone(()=>Scarf.draw());return false" style="color:var(--m)">Покрасить</a> — номер даст узор, город и подарки на этапах.`;
+    const i=STOPS.findIndex(s=>s[1]>this.km); $('#sc-route').innerHTML=STOPS.map((s,k)=>`<div class="stop ${s[1]<=this.km?'done':k===i?'next':''}">${s[0]} · ${s[1].toLocaleString('ru-RU')} км${k===i?` — ещё ${Math.ceil(s[1]-this.km)} км`:''}</div>`).join('');
+    const cs=Object.entries(this.cities).sort((a,b)=>b[1]-a[1]), my=App.phone&&App.city(App.phone);
+    $('#sc-cities').innerHTML=cs.slice(0,6).map(([n,v],k)=>`<div class="kv ${n===my?'me':''}"><span>${k+1}. ${n}</span><span>${v.toFixed(1)} км</span></div>`).join('');
+    const reached=STOPS.filter(s=>s[1]<=this.km).length; if(reached>this.reached){ this.reached=reached; const st=STOPS[reached-1][0];
+      App.pop(App.phone?`<div style="font-size:40px">🎁</div><h3>Шарф дотянулся до города ${st}</h3><p>Всем, кто вязал, — подарок на номер.</p><p><b style="color:var(--m)">${App.fmt(App.phone)}: +3 ГБ</b></p><p style="font-size:13px">Неабоненту: «подарок ждёт в салоне Т2», код на экране.</p>`
+        :`<div style="font-size:40px">🧶</div><h3>Шарф дотянулся до города ${st}</h3><p>Всем, кто вязал с номером, пришёл подарок. Твои ряды серые — подарку некуда прийти.</p>`); } },
+  find(){ if(!App.phone) return App.needPhone(()=>{ this.draw(); this.find(); },'Твой ряд можно найти только по номеру.');
+    if(!this.mine) return App.toast('Сначала свяжи хотя бы один ряд');
+    App.pop(`<h3>Твой ряд нашёлся</h3><p>Ряд № ${(1284517+this.mine).toLocaleString('ru-RU')} из ${(Math.floor(this.km*100)).toLocaleString('ru-RU')}</p><p>${App.city(App.phone)} · узор номера ${App.fmt(App.phone).slice(-5)}</p>`); }
+};
+
+/* ---------- 3. Вытяни нитку ---------- */
+const PRED=['Чаще будут звонить те, кого ты ждёшь.','Кто-то давно хочет тебе позвонить. Опереди.','Год будет длинным. Гигабайтов хватит.','В феврале найдётся время на то, на что не было в декабре.','Спам в этом году промахнётся.','Ты наконец доедешь до тех, к кому собирался.','Мама дозвонится с первого раза.'];
+const OFF=['+5 ГБ на месяц','100 минут на звонки близким','подписка на месяц','скидка на аксессуар в салоне','вязаная игрушка с ёлки — за любую покупку'];
+const Thread = {
+  reset(force){ const today=new Date().toDateString(); const last=store.get('t2ng_thread');
+    this.pulled=0; this.done=false; this.drag=false; $('#th-after').style.display='none'; $('#th-hint').style.display='';
+    $('#th-pr').textContent=PRED[Math.floor(Math.random()*PRED.length)]; this.offer=OFF[Math.floor(Math.random()*OFF.length)]; $('#th-of').textContent=this.offer;
+    if(last===today&&!force){ $('#th-hint').textContent='Сегодняшняя нитка уже вытянута. Следующая — завтра.'; } else $('#th-hint').textContent='↓ тяни нитку ↓';
+    const cols=28, W=Math.min(vw(),400); this.cw=W/cols; this.ch=this.cw*0.8; this.R=Math.round(30*(W/400)*1.1)+6; this.R=34;
+    this.panelH=this.R*this.ch; this.W=W; this.H=this.panelH+120;
+    const P=numberPattern('0123456789',cols); this.grid=P.slice(4,4+this.R);
+    $('#th-box').style.width=W+'px'; $('#th-box').style.height=this.H+'px'; $('#th-rev').style.height=this.panelH+'px'; $('#th-rev').style.opacity=0;
+    const s=setupCanvas($('#th-cv'),W,this.H); this.x=s.x; this.dpr=s.dpr; this.tip={x:W*0.62,y:this.panelH+70}; this.draw();
+    if(last===today&&!force){ this.pulled=this.R; this.finish(true); } },
+  draw(){ const x=this.x, vis=Math.max(0,this.R-Math.floor(this.pulled)); x.clearRect(0,0,this.W,this.H);
+    drawGrid(x,this.grid,this.cw,this.ch,this.dpr,vis);
+    if(this.done) return; const ax=this.W*0.62, ay=vis*this.ch-this.ch*0.3, bx=this.tip.x, by=this.tip.y;
+    x.lineCap='round'; x.lineJoin='round'; x.strokeStyle=C.m2; x.lineWidth=5; x.beginPath();
+    const n=40, len=Math.hypot(bx-ax,by-ay)||1, nx=-(by-ay)/len, ny=(bx-ax)/len;
+    for(let i=0;i<=n;i++){ const t=i/n, sag=Math.sin(Math.PI*t)*18*(this.drag?0.2:1), w=Math.sin(t*26)*2.2;
+      const px=ax+(bx-ax)*t+nx*(w+sag*0.3), py=ay+(by-ay)*t+ny*w+sag*0.2; i?x.lineTo(px,py):x.moveTo(px,py); }
+    x.stroke(); x.fillStyle=C.m2; x.beginPath(); x.arc(bx,by,8,0,Math.PI*2); x.fill();
+    $('#th-rev').style.opacity=Math.min(1,this.pulled/6); },
+  pos(e){ const r=$('#th-cv').getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top}; },
+  down(e){ if(this.done) return; const p=this.pos(e); const vis=(this.R-Math.floor(this.pulled))*this.ch;
+    if(Math.hypot(p.x-this.tip.x,p.y-this.tip.y)<70||p.y>vis){ this.drag=true; this.lastY=p.y; this.tip=p; $('#th-cv').setPointerCapture(e.pointerId); this.draw(); } },
+  move(e){ if(!this.drag) return; const p=this.pos(e); const dy=p.y-this.lastY; if(dy>0) this.pulled=Math.min(this.R,this.pulled+dy/this.ch*1.4); this.lastY=p.y;
+    this.tip={x:Math.max(10,Math.min(this.W-10,p.x)),y:Math.max(10,Math.min(this.H-10,p.y))}; this.draw(); if(this.pulled>=this.R-1) this.finish(); },
+  up(){ if(!this.drag) return; this.drag=false; const vis=(this.R-Math.floor(this.pulled))*this.ch; this.tip={x:this.W*0.62,y:Math.min(this.H-20,vis+70)}; this.draw(); },
+  finish(silent){ this.done=true; this.drag=false; this.pulled=this.R; this.draw(); $('#th-rev').style.opacity=1; $('#th-hint').style.display='none'; $('#th-after').style.display='';
+    $('#th-box').style.height=(this.panelH+8)+'px';
+    if(!silent) store.set('t2ng_thread',new Date().toDateString()); },
+  claim(){ App.needPhone(()=>{ App.pop(`<div style="font-size:40px">🧶</div><h3>${this.offer}</h3><p><b>Абоненту Т2</b> — придёт на ${App.fmt(App.phone)} сразу.</p><p><b>Не абоненту</b> — подарок ждёт в салоне Т2. Код: <b style="color:var(--m)">НИТКА-${App.phone.slice(-4)}</b></p><p style="font-size:13px">Так лендинг возвращает человека в салон.</p>`); },'Чтобы забрать то, что вытянул, нужен номер.'); }
+};
+(()=>{ const cv=$('#th-cv'); cv.addEventListener('pointerdown',e=>Thread.down(e)); cv.addEventListener('pointermove',e=>Thread.move(e)); cv.addEventListener('pointerup',()=>Thread.up()); cv.addEventListener('pointercancel',()=>Thread.up()); })();
+
+/* ---------- 4. Вязаная открытка ---------- */
+const Card = {
+  img:null,
+  clearPhoto(){ this.img=null; $('#cd-file').value=''; this.render(); },
+  render(){ const cols=44, P=[C.k,C.m3,C.m,C.p], rows=[];
+    const sep=k=>{ for(let j=0;j<2;j++){ const row=[]; for(let c=0;c<cols;c++) row.push((c+j+k)%2?C.w:C.m); rows.push(row); } };
+    sep(0);
+    if(this.img){ const ph=46, t=document.createElement('canvas'); t.width=cols; t.height=ph; const x=t.getContext('2d');
+      const ir=this.img.width/this.img.height, tr=cols/(ph*0.8); let sw,sh,sx,sy;
+      if(ir>tr){ sh=this.img.height; sw=sh*tr; sx=(this.img.width-sw)/2; sy=0; } else { sw=this.img.width; sh=sw/tr; sx=0; sy=(this.img.height-sh)/2; }
+      x.drawImage(this.img,sx,sy,sw,sh,0,0,cols,ph); const d=x.getImageData(0,0,cols,ph).data; const L=[];
+      for(let i=0;i<cols*ph;i++) L.push(0.299*d[i*4]+0.587*d[i*4+1]+0.114*d[i*4+2]);
+      const s=[...L].sort((a,b)=>a-b), lo=s[Math.floor(L.length*0.05)], hi=s[Math.floor(L.length*0.95)];
+      for(let r=0;r<ph;r++){ const row=[]; for(let c=0;c<cols;c++){ const v=Math.max(0,Math.min(0.999,(L[r*cols+c]-lo)/(hi-lo+1))); row.push(P[Math.floor(v*4)]); } rows.push(row); } }
+    else { const T=MOT[1], S=MOT[0]; for(let r=0;r<30;r++){ const row=[]; for(let c=0;c<cols;c++){ const band=Math.floor(r/10), m=band===1?S:T, y=r%10-1, tc=(c+band*4)%9;
+        row.push(y>=0&&y<7&&tc<7&&m[y][tc]==='1'?(band===1?C.m:C.w):(band===1?C.w:C.m)); } rows.push(row); } }
+    sep(1);
+    const txt=($('#cd-txt').value||'С Новым годом').toUpperCase(); let bm;
+    for(let n=14;n>=4;n--){ bm=textBitmap(wrapLines(txt,n),12,'900 40px Arial, sans-serif'); if(bm[0].length<=cols-2) break; }
+    const pad=Math.max(0,Math.floor((cols-bm[0].length)/2)); rows.push(Array(cols).fill(C.m));
+    for(const s of bm){ const row=[]; for(let c=0;c<cols;c++){ const ch=s[c-pad]; row.push(ch==='1'?C.w:C.m); } rows.push(row); }
+    rows.push(Array(cols).fill(C.m)); sep(0);
+    knitCanvas($('#cd-cv'),rows,Math.min(vw(),380)); }
+};
+$('#cd-txt').addEventListener('input',()=>Card.render());
+$('#cd-file').addEventListener('change',e=>{ const f=e.target.files[0]; if(!f) return; const im=new Image(); im.onload=()=>{ Card.img=im; Card.render(); }; im.src=URL.createObjectURL(f); });
+
+/* ---------- 5. Уродливый свитер ---------- */
+function bars(){ const h=[3,5,7,9], out=[]; for(let r=0;r<9;r++){ let s=''; for(let i=0;i<4;i++){ const on=9-r<=h[i]; s+=(on?(i===0?'1':'2'):'0').repeat(3)+(i<3?'0':''); } out.push(s); } return out; }
+function ring(){ const out=[]; for(let r=0;r<9;r++){ let s=''; for(let c=0;c<9;c++){ const dx=c-4, dy=r-4, d=Math.hypot(dx,dy), a=(Math.atan2(dy,dx)+Math.PI*2)%(Math.PI*2); s+=(d>2.6&&d<4.4&&!(a>4.6&&a<5.9))?'1':'0'; } out.push(s); } return out; }
+const PATCHES=[
+ {n:'Одна палка',b:bars()},
+ {n:'Загрузка',b:ring()},
+ {n:'0 ₽',t:['0 ₽']},
+ {n:'Мошенник',t:['ВОЗМОЖНО','МОШЕННИК']},
+ {n:'Недоступен',t:['АБОНЕНТ','НЕДОСТУПЕН']},
+ {n:'Нет сети',t:['НЕТ СЕТИ']},
+ {n:'Змейка',b:['111111111100','000000000100','001111111100','001000000000','001111111103']},
+ {n:'SMS',b:['11111111111','11000000011','10100000101','10010001001','10001010001','10000100001','11111111111']},
+ {n:'Олень',b:MOT[4]},{n:'Ёлка',b:MOT[1]},{n:'Снежинка',b:MOT[0]},{n:'Сердце',b:MOT[2]}
+];
+PATCHES.forEach(p=>{ if(p.t) p.b=textBitmap(p.t,9,'900 31px Arial Narrow, Arial, sans-serif'); });
+const UCOL=[C.w,C.m,C.k,C.y,C.gr,C.r];
+const Ugly = {
+  base:'classic', sel:0, col:0, stamps:[], W:72, H:82,
+  open(){ if(!this.built){ this.built=1;
+      $('#ug-patches').innerHTML=PATCHES.map((p,i)=>`<button class="patch ${i===0?'on':''}" data-i="${i}"><canvas></canvas>${p.n}</button>`).join('');
+      $('#ug-patches').querySelectorAll('.patch').forEach((el,i)=>{ const b=PATCHES[i].b; const g=b.map(s=>[...s].map(ch=>ch==='1'?C.w:ch==='2'?C.g:ch==='3'?C.r:C.m3));
+        const w=Math.min(60,b[0].length*5); knitCanvas(el.querySelector('canvas'),g,w); el.onclick=()=>{ this.sel=i; $('#ug-patches').querySelectorAll('.patch').forEach(x=>x.classList.toggle('on',x===el)); }; });
+      $('#ug-colors').innerHTML=UCOL.map((c,i)=>`<button style="background:${c}" class="${i===0?'on':''}" data-i="${i}"></button>`).join('');
+      $('#ug-colors').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; this.col=+b.dataset.i; $('#ug-colors').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); };
+      $('#ug-base').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; const go=()=>{ this.base=b.dataset.v; $('#ug-base').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); this.render(); };
+        b.dataset.v==='number'?App.needPhone(go,'Основа свитера — узор твоего номера.'):go(); };
+      $('#ug-cv').addEventListener('pointerdown',e=>{ const r=$('#ug-cv').getBoundingClientRect(); const c=Math.floor((e.clientX-r.left)/this.geo.cw), rr=Math.floor((e.clientY-r.top)/this.geo.ch);
+        this.stamps.push({p:this.sel,c,r:rr,col:UCOL[this.col]}); this.render(); });
+      if(!this.stamps.length) this.stamps=[{p:0,c:36,r:36,col:C.w},{p:3,c:36,r:56,col:C.y}]; }
+    this.render(); },
+  baseColor(c,r){ if(this.base==='number'&&App.phone){ const P=numberPattern(App.phone,this.W); return P[(r+6)%P.length][c]; }
+    if(this.base==='t2'){ return Math.floor(r/4)%2?C.k:C.m; }
+    const band=r>=17&&r<=23; if(band){ const y=r-17, tc=c%8, m=MOT[5]; return y<7&&tc<7&&m[y][tc]==='1'?C.w:C.gr; } return r===16||r===24?C.w:C.r; },
+  grid(W,H,stamps){ const g=fillShape('sweater',W,H,(c,r)=>this.baseColor(c,r));
+    for(const s of stamps){ const b=PATCHES[s.p].b, h=b.length, w=b[0].length, r0=s.r-Math.floor(h/2), c0=s.c-Math.floor(w/2);
+      for(let y=0;y<h;y++) for(let x=0;x<w;x++){ const ch=b[y][x]; if(ch==='0') continue; const R=r0+y, Cc=c0+x; if(R<0||R>=H||Cc<0||Cc>=W||!g[R][Cc]) continue;
+        g[R][Cc]=ch==='2'?shade(s.col,-0.55):ch==='3'?C.r:s.col; } }
+    return g; },
+  render(){ this.geo=knitCanvas($('#ug-cv'),this.grid(this.W,this.H,this.stamps),vw()); },
+  undo(){ this.stamps.pop(); this.render(); }, clear(){ this.stamps=[]; this.render(); },
+  submit(){ App.needPhone(()=>{ $('#ug-gal').style.display='';
+      const pre=[{n:'«Абонент недоступен»',v:412,s:[{p:4,c:36,r:40,col:C.w},{p:9,c:15,r:58,col:C.w},{p:9,c:57,r:58,col:C.w}]},
+                 {n:'«Одна палка»',v:388,s:[{p:0,c:36,r:36,col:C.y},{p:1,c:36,r:54,col:C.w}]},
+                 {n:'«Змейка 2007»',v:251,s:[{p:6,c:36,r:38,col:C.y},{p:2,c:36,r:56,col:C.w}]}];
+      const save=this.base; const items=[{n:'Твой свитер',v:1,me:1,s:this.stamps.slice(),b:save}].concat(pre.map((x,i)=>({...x,b:['classic','t2','classic'][i]})));
+      $('#ug-gallery').innerHTML=items.map((it,i)=>`<div class="gal ${it.me?'me':''}"><canvas data-i="${i}"></canvas><div>${it.n}</div><button class="vote" data-i="${i}">♥ ${it.v}</button></div>`).join('');
+      items.forEach((it,i)=>{ this.base=it.b; knitCanvas($('#ug-gallery').querySelector(`canvas[data-i="${i}"]`),this.grid(this.W,this.H,it.s),Math.min(150,(vw()-40)/2)); }); this.base=save;
+      $('#ug-gallery').onclick=e=>{ const b=e.target.closest('.vote'); if(!b) return; if($('#ug-gallery').querySelector('.vote.on')) return App.toast('Один номер — один голос');
+        const it=items[+b.dataset.i]; it.v++; b.textContent='♥ '+it.v; b.classList.add('on'); App.toast('Голос учтён'); };
+      $('#ug-gal').scrollIntoView({behavior:'smooth'}); },'Голосовать и участвовать — по номеру. Один номер, один голос.'); }
+};
+
+App.updChip();
+document.fonts&&document.fonts.ready.then(()=>{ PATCHES.forEach(p=>{ if(p.t) p.b=textBitmap(p.t,9,'900 31px Arial Narrow, Arial, sans-serif'); }); });
+let rt; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{ const on=document.querySelector('.screen.on').id.slice(2); if(on!=='menu'&&on!=='thread') App.go(on); },250); });
+</script>
+</body>
+</html>
