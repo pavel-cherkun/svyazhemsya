@@ -8,102 +8,93 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--m:#FF3495;--m2:#ff7ab8;--m3:#b5135f;--bg:#0b0b0c;--card:#17171a;--card2:#1f1f23;--ink:#fff;--mute:#a3a3aa;--line:#2b2b31;--U:Unbounded,'Arial Black',sans-serif;--I:Inter,system-ui,-apple-system,Arial,sans-serif}
+:root{--m:#FF3495;--m2:#ff7ab8;--m3:#b5135f;--bg:#0b0b0c;--card:#17171a;--card2:#222227;--ink:#fff;--mute:#a3a3aa;--line:#2b2b31;--U:Unbounded,'Arial Black',sans-serif;--I:Inter,system-ui,-apple-system,Arial,sans-serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 var(--I)}
 body{min-height:100dvh;overscroll-behavior-y:none}
 button,input{font:inherit;color:inherit}
-.knit{height:16px;background:
- radial-gradient(ellipse 7px 9px at 28% 50%,var(--m2) 58%,transparent 62%) 0 0/14px 16px,
- radial-gradient(ellipse 7px 9px at 72% 50%,var(--m) 58%,transparent 62%) 0 0/14px 16px,var(--m3)}
-.wrap{max-width:480px;margin:0 auto;padding:0 16px 40px}
+.knit{height:16px;background:radial-gradient(ellipse 7px 9px at 28% 50%,var(--m2) 58%,transparent 62%) 0 0/14px 16px,radial-gradient(ellipse 7px 9px at 72% 50%,var(--m) 58%,transparent 62%) 0 0/14px 16px,var(--m3)}
+.wrap{max-width:480px;margin:0 auto;padding:0 16px 48px}
 header.top{padding:22px 0 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.brand{font:800 30px/1 var(--U);letter-spacing:-.01em}
-.brand small{display:block;font:500 12px/1.4 var(--I);color:var(--mute);letter-spacing:0;margin-top:8px}
+.brand{font:800 30px/1 var(--U)}
+.brand small{display:block;font:500 12px/1.4 var(--I);color:var(--mute);margin-top:8px}
 .chip{flex:none;border:1px solid var(--line);border-radius:99px;padding:7px 12px;font-size:12px;color:var(--mute);background:var(--card);cursor:pointer;white-space:nowrap}
 .chip b{color:var(--ink);font-weight:600}
 .lead{color:var(--mute);font-size:14px;margin:6px 0 18px}
 .cards{display:grid;gap:12px}
-.card{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 16px 14px;cursor:pointer;position:relative;overflow:hidden}
+.card{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:0 0 16px;cursor:pointer;overflow:hidden}
 .card:active{transform:scale(.985)}
-.card h3{margin:0 0 4px;font:800 17px/1.2 var(--U)}
-.card p{margin:0;color:var(--mute);font-size:14px}
-.card .tag{position:absolute;top:14px;right:14px;font:600 11px var(--I);color:var(--m);border:1px solid var(--m);border-radius:99px;padding:2px 8px}
-.card .sw{height:10px;margin:-16px -16px 12px;background:
- radial-gradient(ellipse 5px 6px at 28% 50%,var(--c1) 58%,transparent 62%) 0 0/10px 10px,
- radial-gradient(ellipse 5px 6px at 72% 50%,var(--c2) 58%,transparent 62%) 0 0/10px 10px,var(--c3)}
+.card canvas{width:100%;height:84px;display:block;margin-bottom:14px}
+.card .k{padding:0 16px;font:600 11px var(--I);letter-spacing:.12em;text-transform:uppercase;color:var(--m)}
+.card h3{margin:4px 16px 4px;font:800 19px/1.2 var(--U)}
+.card p{margin:0 16px;color:var(--mute);font-size:14px}
+.card .tag{float:right;margin-right:16px;font:600 11px var(--I);color:var(--mute);border:1px solid var(--line);border-radius:99px;padding:2px 8px;letter-spacing:0;text-transform:none}
 .foot{margin-top:22px;color:#6d6d74;font-size:12px;text-align:center}
 .screen{display:none}.screen.on{display:block}
-.bar{display:flex;align-items:center;gap:10px;padding:16px 0 10px}
+.bar{display:flex;align-items:center;gap:10px;padding:16px 0 8px}
 .back{border:0;background:var(--card);border-radius:12px;width:40px;height:40px;font-size:20px;cursor:pointer;flex:none}
 .bar h2{margin:0;font:800 19px/1.15 var(--U)}
-.sub{color:var(--mute);font-size:14px;margin:0 0 14px}
+.sub{color:var(--mute);font-size:14px;margin:0 0 12px}
 .btn{display:block;width:100%;border:0;border-radius:14px;padding:15px 16px;font-weight:600;background:var(--m);color:#fff;cursor:pointer;text-align:center;margin-top:10px}
 .btn.ghost{background:var(--card2);color:var(--ink)}
-.btn.small{display:inline-block;width:auto;padding:9px 14px;font-size:14px;margin:0}
-.btn:disabled{opacity:.4}
-.row{display:flex;gap:8px;flex-wrap:wrap}
-.row>.btn{flex:1;min-width:120px}
+.btn.small{display:inline-block;width:auto;padding:9px 14px;font-size:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>.btn{flex:1;min-width:120px}
 .seg{display:flex;background:var(--card);border-radius:12px;padding:4px;gap:4px;margin:10px 0}
 .seg button{flex:1;border:0;background:none;border-radius:9px;padding:9px 4px;font-size:13px;color:var(--mute);cursor:pointer}
 .seg button.on{background:var(--card2);color:var(--ink);font-weight:600}
 canvas{display:block;touch-action:none}
-.stage{display:flex;justify-content:center;margin:8px 0}
+.stage{display:flex;justify-content:center;margin:8px 0;position:relative}
 .note{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;color:var(--mute);margin:12px 0}
 .note b{color:var(--ink)}
-.big{font:800 34px/1 var(--U);margin:4px 0}
-.big span{font-size:16px;color:var(--mute);font-family:var(--I);font-weight:500}
+details.how{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:14px 0;font-size:14px}
+details.how summary{padding:12px 14px;cursor:pointer;font-weight:600;list-style:none}
+details.how summary::after{content:"＋";float:right;color:var(--mute)}
+details.how[open] summary::after{content:"−"}
+details.how div{padding:0 14px 12px;color:var(--mute)}
+details.how b{color:var(--ink)}
+.big{font:800 34px/1 var(--U)}.big span{font-size:15px;color:var(--mute);font-family:var(--I);font-weight:500}
 .kv{display:flex;justify-content:space-between;font-size:14px;padding:6px 0;border-bottom:1px solid var(--line)}
-.kv:last-child{border:0}
-.kv.me{color:var(--m);font-weight:600}
-.route{position:relative;margin:14px 0 6px;padding-left:18px}
-.route::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line)}
-.stop{position:relative;font-size:14px;padding:3px 0;color:var(--mute)}
-.stop::before{content:"";position:absolute;left:-17px;top:9px;width:10px;height:10px;border-radius:50%;background:var(--line)}
-.stop.done{color:var(--ink)}.stop.done::before{background:var(--m)}
-.stop.next::before{background:var(--bg);border:2px solid var(--m);width:6px;height:6px}
-.scarfwrap{display:flex;gap:16px;align-items:flex-start}
-.scarfwrap .info{flex:1;min-width:0}
+.kv:last-child{border:0}.kv.me{color:var(--m);font-weight:600}
 input.txt{width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:16px;outline:none}
 input.txt:focus{border-color:var(--m)}
-label.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--mute);margin:12px 0 4px}
-label.chk input{margin-top:2px;accent-color:var(--m);width:18px;height:18px;flex:none}
+/* узор номера */
+.numdisp{font:800 26px/1 var(--U);text-align:center;letter-spacing:.02em;margin:6px 0 4px;white-space:nowrap}
+.numdisp i{font-style:normal;color:#3a3a40}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.keypad button{border:0;background:var(--card2);border-radius:14px;height:52px;font:600 22px var(--I);cursor:pointer}
+.keypad button:active{background:var(--m)}
+.keypad .fn{font-size:15px;color:var(--mute)}
+.glow{position:absolute;border:3px solid #fff;border-radius:8px;box-shadow:0 0 0 4px rgba(255,52,149,.6),0 0 24px rgba(255,255,255,.7);animation:pulse 1.1s infinite;cursor:pointer}
+.glow::after{content:"тут подарок";position:absolute;right:6px;top:-26px;background:#fff;color:#111;font:600 12px var(--I);padding:3px 8px;border-radius:8px}
+@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(255,52,149,.25),0 0 34px rgba(255,255,255,.9)}}
+/* шарф */
+.scarfbox{display:flex;gap:14px;align-items:flex-start}
+.scarfbox .info{flex:1;min-width:0}
+.hold{width:100%;height:88px;border-radius:44px;border:0;background:var(--m);color:#fff;font:800 16px var(--U);cursor:pointer;margin-top:10px;user-select:none;-webkit-user-select:none;touch-action:none}
+.hold.on{background:#fff;color:var(--m);transform:scale(.97)}
+.gray{background:#2a1220;border:1px solid var(--m3);color:#ffd0e5;border-radius:14px;padding:10px 12px;font-size:13px;margin-top:10px}
+.gray a{color:#fff;font-weight:600}
+/* открытка */
+.thhint{text-align:center;color:var(--mute);font-size:13px;margin-top:6px}
+.giftline{background:#fff;color:#111;border-radius:14px;padding:12px 14px;margin-top:12px;font-size:14px}
+.giftline b{color:var(--m3)}
+/* лист номера */
 .sheet{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-end;justify-content:center;z-index:50}
 .sheet.on{display:flex}
 .sheet .in{background:#141417;border-radius:22px 22px 0 0;width:100%;max-width:480px;padding:22px 16px calc(20px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
 .sheet h3{margin:0 0 6px;font:800 18px/1.2 var(--U)}
 .sheet p{margin:0 0 12px;color:var(--mute);font-size:14px}
+label.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--mute);margin:10px 0 2px}
+label.chk input{margin-top:2px;accent-color:var(--m);width:18px;height:18px;flex:none}
 .hint{font-size:12px;color:#77777e;margin-top:8px}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,30px);opacity:0;background:#fff;color:#111;padding:11px 16px;border-radius:12px;font-size:14px;font-weight:500;transition:.25s;z-index:60;max-width:calc(100% - 32px);text-align:center;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-.pop{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:55;padding:16px}
+.pop{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:55;padding:16px}
 .pop.on{display:flex}
 .pop .in{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 18px;max-width:360px;width:100%;text-align:center}
 .pop .in h3{font:800 20px/1.2 var(--U);margin:6px 0 8px}
 .pop .in p{color:var(--mute);margin:0 0 6px;font-size:15px}
-.thbox{position:relative;margin:6px auto 0;user-select:none;-webkit-user-select:none}
-.reveal{position:absolute;left:0;top:0;right:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;background:#fff;color:#111;border-radius:6px}
-.reveal .pr{font:800 19px/1.25 var(--U);margin-bottom:14px}
-.reveal .of{background:var(--m);color:#fff;border-radius:12px;padding:10px 14px;font-weight:600;font-size:15px}
-.reveal .lb{font-size:12px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.1em}
-#th-cv{position:absolute;left:0;top:0}
-.thhint{text-align:center;color:var(--mute);font-size:13px;margin-top:4px}
-.patches{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}
-.patches::-webkit-scrollbar{display:none}
-.patch{flex:none;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:8px 10px;font-size:12px;cursor:pointer;text-align:center;min-width:76px}
-.patch.on{border-color:var(--m);background:#2a1220}
-.patch canvas{margin:0 auto 4px}
-.colors{display:flex;gap:8px;margin:6px 0}
-.colors button{width:32px;height:32px;border-radius:50%;border:2px solid transparent;cursor:pointer}
-.colors button.on{border-color:#fff}
-.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
-.gal{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center;font-size:13px}
-.gal canvas{margin:0 auto 6px}
-.gal.me{border-color:var(--m)}
-.vote{border:0;background:var(--card2);border-radius:10px;padding:7px 10px;font-size:13px;cursor:pointer;margin-top:6px;width:100%}
-.vote.on{background:var(--m);color:#fff}
 .mt{margin-top:14px}
-.legend{font-size:12px;color:var(--mute);margin-top:6px;text-align:center}
 </style>
 </head>
 <body>
@@ -116,136 +107,135 @@ label.chk input{margin-top:2px;accent-color:var(--m);width:18px;height:18px;flex
   <div class="brand">Свяжемся<small>Т2 · Новый год 2027 · прототипы лендинга</small></div>
   <button class="chip" id="chip" onclick="App.phoneChip()">номер не введён</button>
  </header>
- <p class="lead">Пять механик. В каждой номер — часть игры, а не анкета. Выберите любую.</p>
+ <p class="lead">Три механики с разными подходами: про себя, вместе со всеми, для близкого. В каждой номер — часть игры, а не анкета.</p>
  <div class="cards">
-  <button class="card" onclick="App.go('pattern')"><div class="sw" style="--c1:#fff;--c2:#ffd0e5;--c3:#FF3495"></div><span class="tag">600</span><h3>Узор твоего номера</h3><p>Цифры номера становятся вязаным узором. Двух одинаковых нет.</p></button>
-  <button class="card" onclick="App.go('scarf')"><div class="sw" style="--c1:#FF3495;--c2:#ff7ab8;--c3:#3a3a40"></div><span class="tag">600</span><h3>Общий шарф</h3><p>Каждый клик — ряд. Вся страна вяжет один шарф от Калининграда до Владивостока.</p></button>
-  <button class="card" onclick="App.go('thread')"><div class="sw" style="--c1:#fff;--c2:#ddd;--c3:#b5135f"></div><span class="tag">400</span><h3>Вытяни нитку</h3><p>Тяни нитку — полотно распускается, под ним предсказание и подарок.</p></button>
-  <button class="card" onclick="App.go('card')"><div class="sw" style="--c1:#ffd0e5;--c2:#FF3495;--c3:#141416"></div><span class="tag">800</span><h3>Вязаная открытка</h3><p>Фото превращается в вязаный портрет, пожелание — в надпись на свитере.</p></button>
-  <button class="card" onclick="App.go('ugly')"><div class="sw" style="--c1:#c8262f;--c2:#fff;--c3:#1f7a4a"></div><span class="tag">800</span><h3>Уродливый свитер Т2</h3><p>Собери свитер из мобильных бед. Лучшие свяжут по-настоящему.</p></button>
+  <button class="card" onclick="App.go('pattern')"><canvas data-prev="pattern"></canvas><div class="k">Про себя <span class="tag">600 тыс. ₽</span></div><h3>Узор твоего номера</h3><p>Набираешь номер — и он вяжется: каждая цифра становится рядом узора. В узоре спрятан подарок.</p></button>
+  <button class="card" onclick="App.go('scarf')"><canvas data-prev="scarf"></canvas><div class="k">Вместе <span class="tag">800 тыс. ₽</span></div><h3>Общий шарф</h3><p>Вся страна вяжет один шарф от Калининграда до Владивостока. Города соревнуются, на каждом этапе — подарки.</p></button>
+  <button class="card" onclick="App.go('card')"><canvas data-prev="card"></canvas><div class="k">Для близкого <span class="tag">400 тыс. ₽</span></div><h3>Открытка-клубок</h3><p>Фото и пожелание вяжутся в открытку и уходят клубком. Получатель тянет нитку — открытка вяжется у него на глазах.</p></button>
  </div>
- <p class="foot">Прототип Oxygen для Т2. Номера никуда не отправляются, SMS не приходят: всё считается в этом браузере.<br>Цифры на карточках — ценовой уровень, тыс. ₽.</p>
+ <p class="foot">Прототип Oxygen для Т2. Номера никуда не отправляются, SMS не приходят: всё считается в этом браузере.</p>
 </section>
 
-<!-- УЗОР НОМЕРА -->
+<!-- 1. УЗОР НОМЕРА -->
 <section class="screen" id="s-pattern">
  <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Узор твоего номера</h2></div>
- <p class="sub">Каждая цифра — свой мотив: снежинка, ёлка, сердце… Порядок цифр задаёт порядок рядов, как в жаккардовом свитере.</p>
- <div id="pt-empty"><button class="btn" onclick="App.needPhone(()=>Pattern.render())">Ввести номер и связать узор</button></div>
- <div id="pt-main" style="display:none">
-  <div class="seg" id="pt-seg"><button data-v="sweater" class="on">Свитер</button><button data-v="scarf">Шарф</button><button data-v="mitten">Варежка</button><button data-v="flat">Полотно</button></div>
-  <div class="stage"><canvas id="pt-cv"></canvas></div>
-  <div class="legend" id="pt-legend"></div>
-  <div class="note" id="pt-gift"></div>
-  <div class="row"><button class="btn ghost" onclick="Pattern.pair()">Сложить с парным номером</button><button class="btn ghost" onclick="App.save('pt-cv','uzor-nomera')">Сохранить</button></div>
-  <button class="btn" onclick="App.sendTo('узор', 'Я связал(а) тебе узор из своего номера. Свяжи свой — сложим половинки.')">Отправить близкому</button>
+ <div id="pt-type">
+  <p class="sub">Набирай номер — он вяжется. Каждая цифра — свой мотив.</p>
+  <div class="stage" id="pt-stage"><canvas id="pt-cv"></canvas></div>
+  <div class="numdisp" id="pt-num"></div>
+  <div class="keypad" id="pt-keys"></div>
+  <button class="btn" id="pt-fix" style="display:none" onclick="Pattern.fix()">Закрепить узор и найти подарок</button>
  </div>
+ <div id="pt-done" style="display:none">
+  <p class="sub" id="pt-legend"></p>
+  <div class="stage" id="pt-stage2"><canvas id="pt-cv2"></canvas></div>
+  <div class="seg" id="pt-seg"><button data-v="sweater" class="on">Свитер</button><button data-v="scarf">Шарф</button><button data-v="mitten">Варежка</button></div>
+  <div class="stage"><canvas id="pt-wear"></canvas></div>
+  <div class="note" id="pt-gift"></div>
+  <div class="row"><button class="btn ghost" onclick="Pattern.pair()">Сложить с близким</button><button class="btn ghost" onclick="Pattern.story()">Картинка в сторис</button></div>
+  <button class="btn" onclick="App.sendTo('узор','Мой номер связал вот такой узор. А какой у твоего?',()=>{})">Спросить у близкого: «А какой у тебя?»</button>
+  <button class="btn ghost small mt" onclick="Pattern.restart()">Другой номер</button>
+ </div>
+ <details class="how"><summary>Как это работает — для Т2</summary><div>
+  <p><b>Путь:</b> QR в салоне → набираешь номер на клавиатуре-спицах, узор вяжется по цифрам → «закрепить узор» → SMS-код → в узоре светится ряд с подарком → «надеть» узор на свитер, сложить с близким, отправить в сторис.</p>
+  <p><b>Номер и согласия:</b> номер — это и есть игра, без него нет узора. Согласия — при «закрепить»: обработка данных (обязательно) и новости Т2 (отдельной галочкой).</p>
+  <p><b>Почему поделятся:</b> у каждого номера свой узор, двух одинаковых нет. «А какой у тебя?» — естественный вопрос. Пары номеров складываются в один свитер.</p>
+  <p><b>Подарок:</b> выпадает по цифрам номера — как гадание по номеру в «Чёрную пятницу» Т2. Неабоненту — «ждёт в салоне».</p>
+  <p><b>Бюджет ~600 тыс. ₽:</b> генератор узора на телефоне, картинки для сторис, сложение пары, выдача подарка по правилам Т2.</p>
+ </div></details>
 </section>
 
-<!-- ОБЩИЙ ШАРФ -->
+<!-- 2. ОБЩИЙ ШАРФ -->
 <section class="screen" id="s-scarf">
  <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Общий шарф</h2></div>
- <div class="scarfwrap">
-  <canvas id="sc-cv" onpointerdown="Scarf.knit()"></canvas>
+ <div style="color:var(--mute);font-size:13px">Вся страна связала</div>
+ <div class="big" id="sc-km">2 418<span> км</span></div>
+ <canvas id="sc-map" style="width:100%;margin:8px 0 2px"></canvas>
+ <div style="font-size:13px;color:var(--mute)" id="sc-next"></div>
+ <div class="scarfbox mt">
+  <canvas id="sc-cv"></canvas>
   <div class="info">
-   <div style="color:var(--mute);font-size:13px">Связаны</div>
-   <div class="big" id="sc-km">2 418<span> км</span></div>
-   <div style="font-size:13px;color:var(--mute)" id="sc-mine">Твоих рядов: 0</div>
-   <button class="btn" onclick="Scarf.knit()">+ ряд</button>
-   <div class="note" id="sc-state" style="font-size:13px"></div>
+   <div style="font-size:13px;color:var(--mute)">Твоих рядов</div>
+   <div class="big" id="sc-mine">0</div>
+   <div id="sc-state"></div>
   </div>
  </div>
- <div class="row mt">
-  <button class="btn ghost" id="sc-find" onclick="Scarf.find()">Найди свой ряд</button>
-  <button class="btn ghost" onclick="App.sendTo('ряд','Я связал(а) тебе ряд в общем шарфе. Довяжешь?')">Довязать близкому</button>
- </div>
- <h3 class="mt" style="font:800 15px var(--U);margin-bottom:0">Шарф тянется по карте</h3>
- <div class="route" id="sc-route"></div>
- <button class="btn ghost small" onclick="Scarf.boost()">Ускорить до следующего города (демо)</button>
- <h3 class="mt" style="font:800 15px var(--U);margin-bottom:6px">Города</h3>
+ <button class="hold" id="sc-hold">Держи — вяжется</button>
+ <div class="row"><button class="btn ghost" onclick="Scarf.relay()">Передать спицы близкому</button><button class="btn ghost" onclick="Scarf.boost()">Ускорить (демо)</button></div>
+ <h3 class="mt" style="font:800 15px var(--U);margin-bottom:6px">Битва городов</h3>
  <div id="sc-cities"></div>
- <p class="hint">Город в проде определяется по коду номера, в прототипе — условно. В демо твой ряд = 200 м, чтобы этапы было видно.</p>
+ <details class="how"><summary>Как это работает — для Т2</summary><div>
+  <p><b>Путь:</b> QR → держишь кнопку, шарф растёт → твои ряды серые, пока нет номера → вводишь номер: ряды окрашиваются узором твоего номера, петли идут в зачёт городу → передаёшь спицы близкому.</p>
+  <p><b>Номер и согласия:</b> номер красит ряды, определяет город по коду и нужен, чтобы прислать подарок на этапе. Согласия — при вводе номера.</p>
+  <p><b>Почему поделятся:</b> город отстаёт — «довяжи за Казань». Передал спицы — когда близкий довяжет, вам обоим бонус. Региональные группы Т2 получают повод постить.</p>
+  <p><b>Подарки:</b> шарф дотянулся до следующего города — всем, кто вязал, подарок на номер. Неабоненту — «ждёт в салоне».</p>
+  <p><b>Бюджет ~800 тыс. ₽:</b> общий счётчик в реальном времени, рейтинг городов, этапы и начисление подарков, защита от накрутки.</p>
+ </div></details>
 </section>
 
-<!-- ВЫТЯНИ НИТКУ -->
-<section class="screen" id="s-thread">
- <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Вытяни нитку</h2></div>
- <p class="sub">Из полотна торчит нитка. Тяни её вниз — посмотрим, что под вязкой. Одна нитка в день.</p>
- <div class="thbox" id="th-box">
-  <div class="reveal" id="th-rev"><div class="lb">2027</div><div class="pr" id="th-pr"></div><div class="lb">тебе выпало</div><div class="of" id="th-of"></div></div>
-  <canvas id="th-cv"></canvas>
- </div>
- <div class="thhint" id="th-hint">↓ тяни нитку ↓</div>
- <div id="th-after" style="display:none">
-  <button class="btn" onclick="Thread.claim()">Забрать подарок</button>
- </div>
- <button class="btn ghost small mt" onclick="Thread.reset(true)">Ещё нитка (в прототипе можно)</button>
-</section>
-
-<!-- ОТКРЫТКА -->
+<!-- 3. ОТКРЫТКА-КЛУБОК -->
 <section class="screen" id="s-card">
- <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Вязаная открытка</h2></div>
- <p class="sub">Фото станет вязаным портретом, текст — надписью, как на новогоднем свитере.</p>
- <input class="txt" id="cd-txt" maxlength="40" placeholder="Пожелание, до 40 знаков" value="Мама, я приеду">
- <div class="row" style="margin-top:8px">
-  <label class="btn ghost" style="margin:0;flex:1">Добавить фото<input type="file" accept="image/*" id="cd-file" hidden></label>
-  <button class="btn ghost" style="margin:0;flex:1" onclick="Card.clearPhoto()">Без фото</button>
+ <div class="bar"><button class="back" onclick="Card.back()">←</button><h2 id="cd-title">Открытка-клубок</h2></div>
+ <div id="cd-make">
+  <p class="sub">Фото станет вязаным портретом, пожелание — надписью, как на новогоднем свитере.</p>
+  <input class="txt" id="cd-txt" maxlength="40" placeholder="Пожелание, до 40 знаков" value="Мама, я приеду">
+  <div class="row" style="margin-top:8px">
+   <label class="btn ghost" style="margin:0;flex:1">Фото<input type="file" accept="image/*" id="cd-file" hidden></label>
+   <button class="btn ghost" style="margin:0;flex:1" onclick="Card.clearPhoto()">Без фото</button>
+  </div>
+  <div class="stage mt"><canvas id="cd-cv"></canvas></div>
+  <button class="btn" onclick="Card.send()">Смотать в клубок и отправить</button>
  </div>
- <div class="stage mt"><canvas id="cd-cv"></canvas></div>
- <div class="row"><button class="btn ghost" onclick="App.save('cd-cv','vyazanaya-otkrytka')">Сохранить</button></div>
- <button class="btn" onclick="App.sendTo('открытку','Тебе вязаная открытка. Ответить можно только своей.')">Отправить</button>
-</section>
-
-<!-- УРОДЛИВЫЙ СВИТЕР -->
-<section class="screen" id="s-ugly">
- <div class="bar"><button class="back" onclick="App.go('menu')">←</button><h2>Уродливый свитер Т2</h2></div>
- <p class="sub">Вместо оленей — мобильные беды, от которых защищает Т2. Выбери нашивку и нажми на свитер.</p>
- <div class="seg" id="ug-base"><button data-v="classic" class="on">Классика</button><button data-v="t2">Т2</button><button data-v="number">Мой номер</button></div>
- <div class="patches" id="ug-patches"></div>
- <div class="colors" id="ug-colors"></div>
- <div class="stage"><canvas id="ug-cv"></canvas></div>
- <div class="row"><button class="btn ghost" onclick="Ugly.undo()">Отменить</button><button class="btn ghost" onclick="Ugly.clear()">Очистить</button><button class="btn ghost" onclick="App.save('ug-cv','urodlivyj-sviter')">Сохранить</button></div>
- <button class="btn" onclick="Ugly.submit()">На голосование</button>
- <div id="ug-gal" style="display:none">
-  <div class="note"><b>Лучшие свитера свяжут по-настоящему.</b> Победители получат свой. Голос — по номеру: один номер, один голос.</div>
-  <div class="gallery" id="ug-gallery"></div>
+ <div id="cd-get" style="display:none">
+  <p class="sub" id="cd-from"></p>
+  <div class="stage"><canvas id="cd-pull"></canvas></div>
+  <div class="thhint" id="cd-hint">↓ тяни нитку из клубка ↓</div>
+  <div id="cd-after" style="display:none">
+   <div class="giftline" id="cd-gift"></div>
+   <button class="btn" onclick="Card.reply()">Ответить своей открыткой</button>
+  </div>
  </div>
+ <details class="how"><summary>Как это работает — для Т2</summary><div>
+  <p><b>Путь отправителя:</b> QR → текст и фото → открытка вяжется → «смотать в клубок» → номер получателя → свой номер и SMS-код → ушло.</p>
+  <p><b>Путь получателя:</b> SMS со ссылкой → видит клубок → тянет нитку, открытка вяжется ряд за рядом → к открытке подарок от Т2 → «ответить своей» (свой номер — второй лид).</p>
+  <p><b>Номер и согласия:</b> без номера получателя открытку некуда отправить, без своего — нечем подписать. Согласия — у отправителя при подтверждении, у получателя — при ответе или получении подарка.</p>
+  <p><b>Почему поделятся:</b> вязаный портрет мамы смешной и трогательный одновременно. Ответить можно только своей открыткой — цепочка.</p>
+  <p><b>Бюджет ~400 тыс. ₽:</b> пример клиента, доведённый до одной сильной механики. Генерация на телефоне, сервер — только отправка ссылки и база лидов.</p>
+ </div></details>
 </section>
-
 </div>
 
-<!-- лист ввода номера -->
 <div class="sheet" id="sheet" onclick="if(event.target===this)App.closeSheet()">
  <div class="in">
   <div id="sh-1">
-   <h3 id="sh-title">Ваш номер</h3>
-   <p id="sh-text"></p>
+   <h3 id="sh-title">Ваш номер</h3><p id="sh-text"></p>
    <input class="txt" id="sh-phone" type="tel" inputmode="tel" autocomplete="off" placeholder="+7 9__ ___-__-__">
-   <label class="chk" id="sh-consent-l"><input type="checkbox" id="sh-consent" checked> Согласен(на) на получение информации от Т2 (в прототипе ничего не отправляется)</label>
+   <div id="sh-cons">
+    <label class="chk"><input type="checkbox" id="sh-c1" checked> Согласен(на) на обработку персональных данных</label>
+    <label class="chk"><input type="checkbox" id="sh-c2"> Хочу получать новости и подарки от Т2</label>
+   </div>
    <button class="btn" id="sh-go">Получить код</button>
    <p class="hint">Прототип: номер остаётся в этом браузере.</p>
   </div>
   <div id="sh-2" style="display:none">
-   <h3>Код из SMS</h3>
-   <p id="sh-sent"></p>
+   <h3>Код из SMS</h3><p id="sh-sent"></p>
    <input class="txt" id="sh-code" type="tel" inputmode="numeric" maxlength="4" placeholder="····">
    <button class="btn" id="sh-ok">Подтвердить</button>
    <p class="hint">В прототипе SMS не приходит — подойдёт любой код, например 2027.</p>
   </div>
  </div>
 </div>
-<div class="pop" id="pop" onclick="if(event.target===this)App.closePop()"><div class="in"><div id="pop-body"></div><button class="btn" onclick="App.closePop()">Хорошо</button></div></div>
+<div class="pop" id="pop" onclick="if(event.target===this)App.closePop()"><div class="in"><div id="pop-body"></div><button class="btn" id="pop-ok" onclick="App.closePop()">Хорошо</button></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 const $ = s => document.querySelector(s);
-const C = {m:'#FF3495',m2:'#ff7ab8',m3:'#b5135f',w:'#f4eff1',k:'#18181b',g:'#5d5d64',g2:'#44444a',p:'#ffc4de',r:'#c8262f',gr:'#1f7a4a',y:'#f2c14e',b:'#2f5fb3'};
-const store = {
-  get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } },
-  set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} }
-};
+const C = {m:'#FF3495',m2:'#ff7ab8',m3:'#b5135f',w:'#f4eff1',k:'#18181b',g:'#5d5d64',g2:'#3d3d43',p:'#ffc4de',r:'#c8262f',gr:'#1f7a4a',y:'#f2c14e'};
+const store = { get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } }, set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} } };
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+const vib = n => { try{ navigator.vibrate&&navigator.vibrate(n) }catch(e){} };
 
-/* ---------- вязка: спрайт петли и отрисовка сетки ---------- */
+/* ---------- вязка ---------- */
 function shade(hex,a){ let n=parseInt(hex.slice(1),16), r=n>>16, g=n>>8&255, b=n&255; const t=a<0?0:255, p=Math.abs(a);
   r=Math.round(r+(t-r)*p); g=Math.round(g+(t-g)*p); b=Math.round(b+(t-b)*p); return '#'+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1); }
 const SPR = {};
@@ -257,34 +247,38 @@ function sprite(color,w,h){ w=Math.max(2,Math.round(w)); h=Math.max(2,Math.round
   return SPR[k]=c; }
 function setupCanvas(cv,W,H){ const dpr=Math.min(2,window.devicePixelRatio||1); cv.style.width=W+'px'; cv.style.height=H+'px';
   cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); return {x,dpr}; }
-function drawGrid(x,grid,cw,ch,dpr,rowsMax){ const R=Math.min(grid.length,rowsMax==null?grid.length:rowsMax);
-  for(let r=0;r<R;r++) for(let c=0;c<grid[r].length;c++){ const col=grid[r][c]; if(!col) continue; x.fillStyle=shade(col,-0.55); x.fillRect(c*cw,r*ch,cw+0.6,ch+0.6); }
-  for(let r=0;r<R;r++) for(let c=0;c<grid[r].length;c++){ const col=grid[r][c]; if(!col) continue; x.drawImage(sprite(col,cw*dpr,ch*dpr),c*cw,r*ch-ch*0.05,cw,ch); } }
+function drawRows(x,grid,cw,ch,dpr,r0,r1,oy=0){
+  for(let r=r0;r<r1;r++) for(let c=0;c<grid[r].length;c++){ const col=grid[r][c]; if(!col) continue; x.fillStyle=shade(col,-0.55); x.fillRect(c*cw,oy+r*ch,cw+0.6,ch+0.6); }
+  for(let r=r0;r<r1;r++) for(let c=0;c<grid[r].length;c++){ const col=grid[r][c]; if(!col) continue; x.drawImage(sprite(col,cw*dpr,ch*dpr),c*cw,oy+r*ch-ch*0.05,cw,ch); } }
 function knitCanvas(cv,grid,W){ const cols=grid[0].length, cw=W/cols, ch=cw*0.8, H=Math.ceil(ch*grid.length+2);
-  const {x,dpr}=setupCanvas(cv,W,H); x.clearRect(0,0,W,H); drawGrid(x,grid,cw,ch,dpr); return {cw,ch,W,H}; }
+  const {x,dpr}=setupCanvas(cv,W,H); x.clearRect(0,0,W,H); drawRows(x,grid,cw,ch,dpr,0,grid.length); return {cw,ch,W,H,x,dpr}; }
+function animKnit(cv,grid,W,per=2){ const cols=grid[0].length, cw=W/cols, ch=cw*0.8, H=Math.ceil(ch*grid.length+2);
+  const {x,dpr}=setupCanvas(cv,W,H); x.clearRect(0,0,W,H); cancelAnimationFrame(cv._raf); let r=0;
+  return new Promise(res=>{ const step=()=>{ const r1=Math.min(grid.length,r+per); drawRows(x,grid,cw,ch,dpr,r,r1); r=r1; if(r<grid.length) cv._raf=requestAnimationFrame(step); else res({cw,ch,W,H}); }; step(); }); }
 const vw = () => Math.min(window.innerWidth-32, 440);
 
-/* ---------- мотивы цифр ---------- */
+/* ---------- мотивы ---------- */
 const MOT = [
- ['1001001','0101010','0011100','1111111','0011100','0101010','1001001'], // 0 снежинка
- ['0001000','0011100','0111110','0011100','0111110','1111111','0001000'], // 1 ёлка
- ['0110110','1111111','1111111','0111110','0011100','0001000','0000000'], // 2 сердце
- ['0001000','0001000','1111111','0111110','0011100','0110110','0100010'], // 3 звезда
- ['1010101','0111110','0011100','1111100','1111110','0100100','0100100'], // 4 олень
- ['0001000','0010100','0101010','1010101','0101010','0010100','0001000'], // 5 ромб
- ['1000001','0100010','0010100','1001001','0100010','0010100','0001000'], // 6 волна
- ['0001000','0011100','0011100','0111110','0111110','1111111','0001000'], // 7 колокольчик
- ['0100010','0010100','1111111','1001001','1111111','1001001','1111111'], // 8 подарок
- ['0000001','0000011','0000111','0001111','0011111','0111111','1111111']  // 9 сеть
-];
+ ['1001001','0101010','0011100','1111111','0011100','0101010','1001001'],
+ ['0001000','0011100','0111110','0011100','0111110','1111111','0001000'],
+ ['0110110','1111111','1111111','0111110','0011100','0001000','0000000'],
+ ['0001000','0001000','1111111','0111110','0011100','0110110','0100010'],
+ ['1010101','0111110','0011100','1111100','1111110','0100100','0100100'],
+ ['0001000','0010100','0101010','1010101','0101010','0010100','0001000'],
+ ['1000001','0100010','0010100','1001001','0100010','0010100','0001000'],
+ ['0001000','0011100','0011100','0111110','0111110','1111111','0001000'],
+ ['0100010','0010100','1111111','1001001','1111111','1001001','1111111'],
+ ['0000001','0000011','0000111','0001111','0011111','0111111','1111111']];
 const MNAME=['снежинка','ёлка','сердце','звезда','олень','ромб','волна','колокольчик','подарок','сеть'];
 const BANDS=[[C.m,C.w],[C.k,C.m2],[C.w,C.m],[C.m3,C.p]];
-function numberPattern(ph,cols){ const rows=[]; const d=ph.split('').map(Number);
-  const sep=i=>{ for(let k=0;k<2;k++){ const row=[]; for(let c=0;c<cols;c++) row.push((c+k+i)%2?C.k:C.m2); rows.push(row); } };
-  d.forEach((dg,i)=>{ const [bg,fg]=BANDS[i%4], m=MOT[dg]; sep(i); rows.push(Array(cols).fill(bg));
-    for(let y=0;y<7;y++){ const row=[]; for(let c=0;c<cols;c++){ const tc=(c+(i%2?4:0))%9; row.push(tc<7&&m[y][tc]==='1'?fg:bg); } rows.push(row); }
-    rows.push(Array(cols).fill(bg)); });
-  sep(10); return rows; }
+const BAND_H=11;
+function bandRows(i,dg,cols,empty){ const rows=[]; const [bg,fg]=empty?[C.g2,C.g2]:BANDS[i%4]; const m=empty?null:MOT[dg];
+  for(let k=0;k<2;k++){ const row=[]; for(let c=0;c<cols;c++) row.push(empty?((c+k)%2?C.g2:C.g):((c+k+i)%2?C.k:C.m2)); rows.push(row); }
+  rows.push(Array(cols).fill(bg));
+  for(let y=0;y<7;y++){ const row=[]; for(let c=0;c<cols;c++){ const tc=(c+(i%2?4:0))%9; row.push(m&&tc<7&&m[y][tc]==='1'?fg:bg); } rows.push(row); }
+  rows.push(Array(cols).fill(bg)); return rows; }
+function numberPattern(ph,cols){ const rows=[]; ph.split('').map(Number).forEach((d,i)=>rows.push(...bandRows(i,d,cols)));
+  for(let k=0;k<2;k++){ const row=[]; for(let c=0;c<cols;c++) row.push((c+k)%2?C.k:C.m2); rows.push(row); } return rows; }
 
 /* ---------- формы ---------- */
 function shapeAt(kind,c,r,W,H){ const u=(c+.5)/W, v=(r+.5)/H;
@@ -300,212 +294,206 @@ function fillShape(kind,W,H,colorAt){ const g=[]; for(let r=0;r<H;r++){ const ro
   row.push(s===0?null:s===2?(c%2?C.m3:shade(C.m3,-0.15)):s===3?C.m2:colorAt(c,r)); } g.push(row); } return g; }
 
 /* ---------- текст в петли ---------- */
-function textBitmap(lines,lineRows=8,font='800 30px Unbounded, Arial Black, sans-serif'){ const sc=4;
-  const t=document.createElement('canvas').getContext('2d'); t.font=font; const w=Math.max(...lines.map(l=>t.measureText(l).width));
-  const cols=Math.ceil(w/sc)+2, rows=lines.length*lineRows; const cv=document.createElement('canvas'); cv.width=cols*sc; cv.height=rows*sc;
-  const x=cv.getContext('2d'); x.font=font; x.fillStyle='#fff'; x.textAlign='center'; x.textBaseline='middle';
-  lines.forEach((l,i)=>x.fillText(l,cv.width/2,(i+0.5)*lineRows*sc+sc*0.4));
-  const d=x.getImageData(0,0,cv.width,cv.height).data, out=[];
+function textBitmap(lines,lineRows,font){ const sc=4; const t=document.createElement('canvas').getContext('2d'); t.font=font;
+  const w=Math.max(...lines.map(l=>t.measureText(l).width)); const cols=Math.ceil(w/sc)+2, rows=lines.length*lineRows;
+  const cv=document.createElement('canvas'); cv.width=cols*sc; cv.height=rows*sc; const x=cv.getContext('2d'); x.font=font; x.fillStyle='#fff'; x.textAlign='center'; x.textBaseline='middle';
+  lines.forEach((l,i)=>x.fillText(l,cv.width/2,(i+0.5)*lineRows*sc+sc*0.4)); const d=x.getImageData(0,0,cv.width,cv.height).data, out=[];
   for(let r=0;r<rows;r++){ let s=''; for(let c=0;c<cols;c++){ let a=0; for(let yy=0;yy<sc;yy++) for(let xx=0;xx<sc;xx++) a+=d[((r*sc+yy)*cv.width+(c*sc+xx))*4+3]; s+=a/(sc*sc*255)>0.38?'1':'0'; } out.push(s); }
   return out; }
-function wrapLines(text,maxChars){ const words=text.trim().split(/\s+/), lines=[]; let cur='';
-  for(const w of words){ if((cur+' '+w).trim().length>maxChars&&cur){ lines.push(cur); cur=w; } else cur=(cur+' '+w).trim(); }
-  if(cur) lines.push(cur); return lines.slice(0,3); }
+function wrapLines(text,n){ const words=text.trim().split(/\s+/), lines=[]; let cur='';
+  for(const w of words){ if((cur+' '+w).trim().length>n&&cur){ lines.push(cur); cur=w; } else cur=(cur+' '+w).trim(); } if(cur) lines.push(cur); return lines.slice(0,3); }
 
 /* ---------- приложение ---------- */
 const App = {
-  phone: (s=>/^9\d{9}$/.test(s||'')?s:null)(store.get('t2ng_phone')),
+  phone:(s=>/^9\d{9}$/.test(s||'')?s:null)(store.get('t2ng_phone')),
   fmt(p){ return `+7 ${p.slice(0,3)} ${p.slice(3,6)}-${p.slice(6,8)}-${p.slice(8)}` },
+  mask(p){ return `+7 ··· ···-${p.slice(6,8)}-${p.slice(8)}` },
   go(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on')); $('#s-'+id).classList.add('on'); window.scrollTo(0,0);
-    ({pattern:()=>Pattern.render(),scarf:()=>Scarf.open(),thread:()=>Thread.reset(false),card:()=>Card.render(),ugly:()=>Ugly.open()})[id]?.(); },
+    ({pattern:()=>Pattern.open(),scarf:()=>Scarf.open(),card:()=>Card.open(),menu:()=>Menu.draw()})[id]?.(); },
   updChip(){ $('#chip').innerHTML=this.phone?`<b>${this.fmt(this.phone)}</b>`:'номер не введён'; },
-  phoneChip(){ this.askPhone({title:'Ваш номер',text:'Номер нужен в каждой механике: из него узор, по нему город, на него подарок.'},()=>{}); },
-  needPhone(cb,text){ if(this.phone) return cb(); this.askPhone({title:'Ваш номер',text:text||'Без номера не получится: он — часть механики.'},cb); },
+  phoneChip(){ this.askPhone({title:'Ваш номер',text:'Номер в каждой механике — часть игры: из него узор, по нему город, на него подарок.'},()=>{}); },
+  needPhone(cb,text){ if(this.phone) return cb(this.phone); this.askPhone({title:'Ваш номер',text:text||'Без номера не получится: он — часть механики.'},cb); },
   parse(v){ let d=(v||'').replace(/\D/g,''); if(d.length===11&&(d[0]==='7'||d[0]==='8')) d=d.slice(1); return /^9\d{9}$/.test(d)?d:null; },
-  askPhone({title,text,recipient},cb){
-    $('#sh-title').textContent=title; $('#sh-text').textContent=text||''; $('#sh-phone').value=''; $('#sh-code').value='';
-    $('#sh-consent-l').style.display=recipient?'none':''; $('#sh-go').textContent=recipient?'Отправить':'Получить код';
-    $('#sh-1').style.display=''; $('#sh-2').style.display='none'; $('#sheet').classList.add('on'); setTimeout(()=>$('#sh-phone').focus(),200);
+  askPhone({title,text,recipient,prefill},cb){
+    $('#sh-title').textContent=title; $('#sh-text').textContent=text||''; $('#sh-phone').value=prefill?this.fmt(prefill):''; $('#sh-code').value='';
+    $('#sh-cons').style.display=recipient?'none':''; $('#sh-go').textContent=recipient?'Готово':'Получить код';
+    $('#sh-1').style.display=''; $('#sh-2').style.display='none'; $('#sheet').classList.add('on'); if(!prefill) setTimeout(()=>$('#sh-phone').focus(),200);
     $('#sh-go').onclick=()=>{ const p=this.parse($('#sh-phone').value); if(!p) return this.toast('Номер вида +7 9XX XXX-XX-XX');
       if(recipient){ this.closeSheet(); return cb(p); }
-      if(!$('#sh-consent').checked) return this.toast('Без согласия не получится — в проде это требование закона');
+      if(!$('#sh-c1').checked) return this.toast('Без согласия на обработку данных не получится');
       $('#sh-sent').textContent='Отправили код на '+this.fmt(p); $('#sh-1').style.display='none'; $('#sh-2').style.display=''; setTimeout(()=>$('#sh-code').focus(),150);
       $('#sh-ok').onclick=()=>{ if(!/^\d{4}$/.test($('#sh-code').value)) return this.toast('Четыре цифры, например 2027');
-        this.phone=p; store.set('t2ng_phone',p); this.updChip(); this.closeSheet(); cb(p); }; };
-  },
+        this.phone=p; store.set('t2ng_phone',p); this.updChip(); this.closeSheet(); cb(p); }; }; },
   closeSheet(){ $('#sheet').classList.remove('on'); },
-  sendTo(what,msg){ this.needPhone(()=>this.askPhone({title:'Кому отправить '+what,text:'Номер близкого. Ему придёт SMS: «'+msg+'»',recipient:true},p=>{
-    this.pop(`<div style="font-size:40px">✉️</div><h3>Ушло на ${this.fmt(p).slice(0,9)}··</h3><p>«${msg}»</p><p style="font-size:13px">В проде получатель открывает ссылку, делает своё и вводит свой номер. Так каждый второй участник приходит по приглашению.</p>`); })); },
-  pop(html){ $('#pop-body').innerHTML=html; $('#pop').classList.add('on'); },
+  sendTo(what,msg,after){ this.needPhone(()=>this.askPhone({title:'Кому',text:'Номер близкого. Ему придёт SMS: «'+msg+'»',recipient:true},p=>{
+    this.pop(`<div style="font-size:40px">✉️</div><h3>Ушло на ${this.mask(p)}</h3><p>«${msg}»</p>`); after&&after(p); })); },
+  pop(html,btn='Хорошо',onOk){ $('#pop-body').innerHTML=html; $('#pop-ok').textContent=btn; $('#pop-ok').onclick=()=>{ this.closePop(); onOk&&onOk(); }; $('#pop').classList.add('on'); },
   closePop(){ $('#pop').classList.remove('on'); },
-  toast(t){ const e=$('#toast'); e.textContent=t; e.classList.add('on'); clearTimeout(this._t); this._t=setTimeout(()=>e.classList.remove('on'),2200); },
-  async save(id,name){ const cv=$('#'+id);
-    try{ const blob=await new Promise(r=>cv.toBlob(r,'image/png')); const f=new File([blob],name+'.png',{type:'image/png'});
+  toast(t){ const e=$('#toast'); e.textContent=t; e.classList.add('on'); clearTimeout(this._t); this._t=setTimeout(()=>e.classList.remove('on'),2400); },
+  async share(cv,name){ try{ const blob=await new Promise(r=>cv.toBlob(r,'image/png')); const f=new File([blob],name+'.png',{type:'image/png'});
       if(navigator.canShare&&navigator.canShare({files:[f]})){ await navigator.share({files:[f],title:'Свяжемся'}); return; } }catch(e){}
     const a=document.createElement('a'); a.href=cv.toDataURL('image/png'); a.download=name+'.png'; a.click(); },
   gift(p){ const s=p.split('').reduce((a,b)=>a+ +b,0); return ['+5 ГБ на месяц','100 минут на звонки близким','подписка на месяц','скидка на аксессуар в салоне','вязаная игрушка с ёлки в салоне'][s%5]; },
   city(p){ const L=['Москва','Санкт-Петербург','Казань','Екатеринбург','Новосибирск','Краснодар','Нижний Новгород','Самара','Пермь','Владивосток']; return L[p.split('').reduce((a,b)=>a*7+ +b,3)%L.length]; }
 };
 
+/* ---------- превью в меню ---------- */
+const Menu = { draw(){ document.querySelectorAll('canvas[data-prev]').forEach((cv,i)=>{ const W=cv.parentElement.clientWidth||340, cols=Math.round(W/9);
+  const P=numberPattern(['9271020270','9123456780','9530712027'][i],cols); const start=[22,0,44][i]; knitCanvas(cv,P.slice(start,start+12),W); cv.style.height='84px'; cv.style.objectFit='cover'; }); } };
+
 /* ---------- 1. Узор номера ---------- */
 const Pattern = {
-  kind:'sweater', pairP:null,
-  render(){ const p=App.phone; $('#pt-empty').style.display=p?'none':''; $('#pt-main').style.display=p?'':'none'; if(!p) return;
-    const W=56,H=this.kind==='flat'?0:64, A=numberPattern(p,W), B=this.pairP?numberPattern(this.pairP,W):null;
-    let grid; if(this.kind==='flat'){ grid=A.map((row,r)=>B?row.map((c,i)=>i<W/2?c:B[r][i]):row); }
-    else grid=fillShape(this.kind,W,H,(c,r)=>{ const P=B&&c>=W/2?B:A; return P[(r+6)%P.length][c]; });
-    knitCanvas($('#pt-cv'),grid,this.kind==='flat'?Math.min(vw(),300):vw());
-    const d=p.split('').map(Number); $('#pt-legend').textContent=d.map(x=>x+' '+MNAME[x]).join(' · ');
-    $('#pt-gift').innerHTML=(B?`Номера сложились в один ${this.kind==='mitten'?'узор':'свитер'}: слева ${App.fmt(p)}, справа ${App.fmt(this.pairP)}.<br><br>`:'')+`По цифрам твоего номера выпало: <b>${App.gift(p)}</b>. <span style="font-size:12px">Как гадание по номеру в «Чёрную пятницу» Т2.</span>`; },
-  pair(){ App.askPhone({title:'Парный номер',text:'Номер близкого или второй номер из пары (…51 и …52). Узоры сложатся в один.',recipient:true},p=>{ this.pairP=p; this.render(); }); }
+  digits:'', kind:'sweater', pairP:null, cols:45,
+  open(){ if(!this.built){ this.built=1;
+      const K=['1','2','3','4','5','6','7','8','9','⌫','0','✓'];
+      $('#pt-keys').innerHTML=K.map(k=>`<button class="${'⌫✓'.includes(k)?'fn':''}" data-k="${k}">${k==='✓'?'готово':k}</button>`).join('');
+      $('#pt-keys').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; this.key(b.dataset.k); };
+      $('#pt-seg').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; $('#pt-seg').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); this.kind=b.dataset.v; this.wear(); }; }
+    if(App.phone&&this.done) return this.showDone();
+    this.digits=''; this.layout(); this.updNum(); },
+  layout(){ const rows=10*BAND_H+2, availH=Math.max(240,window.innerHeight-470); this.cw=Math.min(vw()/this.cols,availH/(rows*0.8)); this.ch=this.cw*0.8;
+    this.W=this.cw*this.cols; this.H=Math.ceil(this.ch*rows+2); const s=setupCanvas($('#pt-cv'),this.W,this.H); this.x=s.x; this.dpr=s.dpr;
+    for(let i=0;i<10;i++) drawRows(this.x,bandRows(i,0,this.cols,true),this.cw,this.ch,this.dpr,0,BAND_H,i*BAND_H*this.ch);
+    drawRows(this.x,[Array(this.cols).fill(C.g),Array(this.cols).fill(C.g2)],this.cw,this.ch,this.dpr,0,2,10*BAND_H*this.ch); },
+  band(i,empty){ const rows=bandRows(i,+this.digits[i]||0,this.cols,empty); const oy=i*BAND_H*this.ch; this.x.clearRect(0,oy,this.W,BAND_H*this.ch+1);
+    if(empty) return drawRows(this.x,rows,this.cw,this.ch,this.dpr,0,BAND_H,oy);
+    let r=0; const step=()=>{ drawRows(this.x,rows,this.cw,this.ch,this.dpr,r,r+1,oy); r++; if(r<BAND_H) requestAnimationFrame(step); }; step(); },
+  key(k){ if(k==='⌫'){ if(!this.digits.length) return; const i=this.digits.length-1; this.digits=this.digits.slice(0,-1); this.band(i,true); }
+    else if(k==='✓'){ if(this.digits.length===10) this.fix(); else App.toast('Нужно 10 цифр после +7'); return; }
+    else { if(this.digits.length>=10) return; if(!this.digits.length&&k!=='9') return App.toast('Мобильный номер начинается с 9'); this.digits+=k; this.band(this.digits.length-1,false); vib(10); }
+    this.updNum(); },
+  updNum(){ const d=this.digits.padEnd(10,'_'); const f=`+7 ${d.slice(0,3)} ${d.slice(3,6)}-${d.slice(6,8)}-${d.slice(8)}`;
+    $('#pt-num').innerHTML=f.replace(/_/g,'<i>_</i>'); $('#pt-fix').style.display=this.digits.length===10?'':'none';
+    const i=this.digits.length-1; $('#s-pattern .sub').textContent=i>=0?`${this.digits[i]} — ${MNAME[+this.digits[i]]}. ${i<9?'Дальше.':'Узор готов.'}`:'Набирай номер — он вяжется. Каждая цифра — свой мотив.'; },
+  fix(){ const p=this.digits; App.askPhone({title:'Закрепить узор',text:'Подтвердим, что номер твой, — и покажем, где в узоре спрятан подарок.',prefill:p},()=>{ this.done=1; this.showDone(true); }); },
+  showDone(fresh){ const p=App.phone; this.digits=p; $('#pt-type').style.display='none'; $('#pt-done').style.display='';
+    $('#pt-legend').textContent=p.split('').map(x=>MNAME[+x]).join(' · ');
+    const g=knitCanvas($('#pt-cv2'),numberPattern(p,this.cols),Math.min(vw(),230)); const gb=p.split('').reduce((a,b)=>a+ +b,0)%10;
+    $('#pt-stage2').querySelectorAll('.glow').forEach(e=>e.remove());
+    const gl=document.createElement('div'); gl.className='glow'; const left=($('#pt-stage2').clientWidth-g.W)/2;
+    Object.assign(gl.style,{left:left+'px',width:g.W+'px',top:(gb*BAND_H+2)*g.ch+'px',height:9*g.ch+'px'}); $('#pt-stage2').appendChild(gl);
+    gl.onclick=()=>{ gl.remove(); App.pop(`<div style="font-size:40px">🎁</div><h3>${App.gift(p)}</h3><p>Спрятан в ряду «${MNAME[+p[gb]]}» — ${gb+1}-я цифра твоего номера.</p><p style="font-size:13px">Абоненту — сразу на номер. Неабоненту — ждёт в салоне Т2, код <b>УЗОР-${p.slice(-4)}</b>.</p>`); this.giftTaken=1; this.updGift(); };
+    if(fresh) gl.scrollIntoView({behavior:'smooth',block:'center'});
+    this.updGift(); this.wear(); },
+  updGift(){ $('#pt-gift').innerHTML=this.giftTaken?`Подарок: <b>${App.gift(App.phone)}</b>. Выпал по цифрам номера — как гадание.`:'В узоре светится ряд с подарком. Нажми на него.'; },
+  wear(){ const p=App.phone, W=56, H=64, A=numberPattern(p,W), B=this.pairP?numberPattern(this.pairP,W):null;
+    const grid=fillShape(this.kind,W,H,(c,r)=>{ const P=B&&c>=W/2?B:A; return P[(r+6)%P.length][c]; }); return animKnit($('#pt-wear'),grid,Math.min(vw(),360),3); },
+  pair(){ App.askPhone({title:'Номер близкого',text:'Узоры двух номеров сложатся в одну вещь: слева твой, справа его.',recipient:true},p=>{ this.pairP=p; this.wear().then(()=>App.toast('Слева ты, справа '+App.mask(p))); $('#pt-wear').scrollIntoView({behavior:'smooth',block:'center'}); }); },
+  story(){ const S=document.createElement('canvas'); S.width=1080; S.height=1920; const x=S.getContext('2d'); x.fillStyle='#0b0b0c'; x.fillRect(0,0,1080,1920);
+    const top=document.createElement('canvas'); knitCanvas(top,numberPattern('0000000000',120).slice(0,6),1080); x.drawImage(top,0,0,1080,top.height/(top.width/1080));
+    x.fillStyle='#fff'; x.font='800 76px Unbounded, Arial Black'; x.fillText('Мой номер',80,230); x.fillText('связал вот это',80,320);
+    const sw=$('#pt-wear'); const w=900, h=sw.height*(w/sw.width); x.drawImage(sw,90,400,w,h);
+    x.fillStyle='#a3a3aa'; x.font='500 38px Inter, Arial'; x.fillText(App.phone.split('').map(d=>MNAME[+d]).slice(0,5).join(' · '),80,440+h); x.fillText(App.phone.split('').map(d=>MNAME[+d]).slice(5).join(' · '),80,495+h);
+    x.fillStyle='#FF3495'; x.font='800 60px Unbounded, Arial Black'; x.fillText('А какой у тебя?',80,1760); x.fillStyle='#fff'; x.font='600 34px Inter, Arial'; x.fillText('Свяжемся · Т2',80,1830);
+    App.share(S,'moy-uzor'); },
+  restart(){ this.done=0; this.pairP=null; this.giftTaken=0; $('#pt-type').style.display=''; $('#pt-done').style.display='none'; this.digits=''; this.layout(); this.updNum(); }
 };
-$('#pt-seg').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; $('#pt-seg').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); Pattern.kind=b.dataset.v; Pattern.render(); };
 
 /* ---------- 2. Общий шарф ---------- */
-const STOPS=[['Калининград',0],['Москва',1250],['Казань',2050],['Екатеринбург',2950],['Новосибирск',4550],['Иркутск',6400],['Владивосток',10400]];
+const STOPS=[['Калининград',0,.04,.42],['Москва',1250,.2,.5],['Казань',2050,.31,.56],['Екатеринбург',2950,.42,.5],['Новосибирск',4550,.6,.64],['Иркутск',6400,.75,.7],['Владивосток',10400,.95,.82]];
 const Scarf = {
-  km:2418.3, mine:+(store.get('t2ng_rows')||0), others:null, cities:null, timer:null, reached:null,
+  km:2418.3, mine:0, others:null, cities:null, reached:0, timer:null, holdT:null,
   init(){ if(this.others) return; const fake=['9271020270','9531234517','9008765432','9645550123','9112233445'];
-    this.others=[]; for(let i=0;i<46;i++){ const P=numberPattern(fake[i%5],16); this.others.push(P[(i*7)%P.length]); }
-    this.cities={'Москва':612.4,'Санкт-Петербург':401.9,'Казань':288.1,'Екатеринбург':247.6,'Новосибирск':203.3,'Краснодар':190.2,'Нижний Новгород':151.8,'Самара':120.5,'Пермь':101.7,'Владивосток':100.8};
-    this.reached=STOPS.filter(s=>s[1]<=this.km).length; },
-  open(){ this.init(); this.draw(); clearInterval(this.timer); this.timer=setInterval(()=>{ if(!$('#s-scarf').classList.contains('on')) return clearInterval(this.timer); this.km+=0.11; this.upd(); },400); },
-  rows(){ const P=App.phone?numberPattern(App.phone,16):null; const mine=[]; for(let i=0;i<this.mine;i++) mine.push(P?P[i%P.length]:Array.from({length:16},(_,c)=>(c+i)%2?C.g:C.g2)); return this.others.concat(mine).slice(-44); },
-  draw(){ const W=Math.min(150,vw()*0.38); knitCanvas($('#sc-cv'),this.rows(),W); this.upd(); },
-  knit(){ this.mine++; store.set('t2ng_rows',this.mine); this.km+=0.2; if(App.phone) this.cities[App.city(App.phone)]+=0.2; this.draw(); if(navigator.vibrate) navigator.vibrate(8); },
-  boost(){ const next=STOPS.find(s=>s[1]>this.km); if(!next) return App.toast('Шарф уже во Владивостоке'); this.km=next[1]+0.5; this.upd(); },
-  upd(){ $('#sc-km').innerHTML=Math.floor(this.km).toLocaleString('ru-RU')+'<span> км</span>';
-    $('#sc-mine').textContent='Твоих рядов: '+this.mine;
-    $('#sc-state').innerHTML=App.phone?`Твои ряды — узор номера ${App.fmt(App.phone).slice(-5)}. Петли идут в зачёт городу <b>${App.city(App.phone)}</b>.`:`<b>Без номера твои ряды серые и ничьи.</b> <a href="#" onclick="App.needPhone(()=>Scarf.draw());return false" style="color:var(--m)">Покрасить</a> — номер даст узор, город и подарки на этапах.`;
-    const i=STOPS.findIndex(s=>s[1]>this.km); $('#sc-route').innerHTML=STOPS.map((s,k)=>`<div class="stop ${s[1]<=this.km?'done':k===i?'next':''}">${s[0]} · ${s[1].toLocaleString('ru-RU')} км${k===i?` — ещё ${Math.ceil(s[1]-this.km)} км`:''}</div>`).join('');
-    const cs=Object.entries(this.cities).sort((a,b)=>b[1]-a[1]), my=App.phone&&App.city(App.phone);
-    $('#sc-cities').innerHTML=cs.slice(0,6).map(([n,v],k)=>`<div class="kv ${n===my?'me':''}"><span>${k+1}. ${n}</span><span>${v.toFixed(1)} км</span></div>`).join('');
+    this.others=[]; for(let i=0;i<40;i++){ const P=numberPattern(fake[i%5],16); this.others.push(P[(i*7)%P.length]); }
+    this.mineRows=[]; this.cities={'Москва':612.4,'Санкт-Петербург':401.9,'Казань':288.1,'Пермь':286.9,'Екатеринбург':247.6,'Новосибирск':203.3,'Краснодар':190.2,'Нижний Новгород':151.8,'Самара':120.5,'Владивосток':100.8};
+    this.reached=STOPS.filter(s=>s[1]<=this.km).length;
+    const h=$('#sc-hold'); const start=e=>{ e.preventDefault(); h.classList.add('on'); this.knit(); clearInterval(this.holdT); this.holdT=setInterval(()=>this.knit(),120); };
+    const stop=()=>{ h.classList.remove('on'); clearInterval(this.holdT); };
+    h.addEventListener('pointerdown',start); ['pointerup','pointerleave','pointercancel'].forEach(t=>h.addEventListener(t,stop)); },
+  open(){ this.init(); this.draw(); this.map(); clearInterval(this.timer); this.timer=setInterval(()=>{ if(!$('#s-scarf').classList.contains('on')) return clearInterval(this.timer); this.km+=0.07; this.upd(); },300); },
+  rows(){ const P=App.phone?numberPattern(App.phone,16):null;
+    const mine=this.mineRows.map((m,i)=>m.f?m.row:(P?P[i%P.length]:Array.from({length:16},(_,c)=>(c+i)%2?C.g:C.g2))); return this.others.concat(mine).slice(-40); },
+  draw(){ knitCanvas($('#sc-cv'),this.rows(),Math.min(130,vw()*0.36)); this.upd(); },
+  knit(){ this.mineRows.push({}); this.mine++; this.km+=0.2; if(App.phone) this.cities[App.city(App.phone)]+=0.2; this.draw(); vib(6); },
+  boost(){ const next=STOPS.find(s=>s[1]>this.km); if(!next) return App.toast('Шарф уже во Владивостоке'); this.km=next[1]+0.4; this.upd(); },
+  relay(){ App.sendTo('спицы','Я вяжу шарф от Калининграда до Владивостока. Подержи спицы — довяжи свой ряд.',p=>{
+    setTimeout(()=>{ const P=numberPattern(p,16); for(let i=0;i<24;i++) this.mineRows.push({f:1,row:P[i%P.length]}); this.km+=4.8; if(App.phone) this.cities[App.city(App.phone)]+=10; this.draw();
+      App.toast(App.mask(p)+' довязал(а) 24 ряда — вам обоим +10 км к городу'); },2600); }); },
+  map(){ const cv=$('#sc-map'), W=cv.clientWidth||vw(), H=120, {x}=setupCanvas(cv,W,H); this.mx=x; this.mW=W; this.mH=H; this.drawMap(); },
+  drawMap(){ const x=this.mx, W=this.mW, H=this.mH; if(!x) return; x.clearRect(0,0,W,H); const P=STOPS.map(s=>[s[2]*W,s[3]*H]);
+    x.lineCap='round'; x.lineJoin='round'; x.setLineDash([2,6]); x.strokeStyle='#3a3a40'; x.lineWidth=3; x.beginPath(); P.forEach((p,i)=>i?x.lineTo(...p):x.moveTo(...p)); x.stroke(); x.setLineDash([]);
+    let k=STOPS.findIndex(s=>s[1]>this.km); if(k<0) k=STOPS.length; const pts=P.slice(0,k);
+    if(k<STOPS.length&&k>0){ const a=STOPS[k-1], b=STOPS[k], t=(this.km-a[1])/(b[1]-a[1]); pts.push([P[k-1][0]+(P[k][0]-P[k-1][0])*t,P[k-1][1]+(P[k][1]-P[k-1][1])*t]); }
+    x.strokeStyle=C.m; x.lineWidth=9; x.beginPath(); pts.forEach((p,i)=>i?x.lineTo(...p):x.moveTo(...p)); x.stroke();
+    x.strokeStyle='#fff'; x.lineWidth=2; x.setLineDash([3,5]); x.beginPath(); pts.forEach((p,i)=>i?x.lineTo(...p):x.moveTo(...p)); x.stroke(); x.setLineDash([]);
+    x.font='500 10px Inter, Arial'; STOPS.forEach((s,i)=>{ x.fillStyle=s[1]<=this.km?C.m:'#55555c'; x.beginPath(); x.arc(P[i][0],P[i][1],4,0,7); x.fill();
+      x.fillStyle=s[1]<=this.km?'#fff':'#77777e'; x.textAlign=i===0?'left':i===STOPS.length-1?'right':'center'; x.fillText(s[0],P[i][0],P[i][1]+([-10,18,-10,18,-10,18,18][i])); });
+    const tip=pts[pts.length-1]; x.fillStyle=C.m2; x.beginPath(); x.arc(tip[0],tip[1],8,0,7); x.fill(); x.strokeStyle=C.m3; x.lineWidth=1.5; for(let a=0;a<3;a++){ x.beginPath(); x.arc(tip[0],tip[1],8-a*2.4,a,a+2.4); x.stroke(); } },
+  upd(){ $('#sc-km').innerHTML=Math.floor(this.km).toLocaleString('ru-RU')+'<span> км</span>'; $('#sc-mine').textContent=this.mine; this.drawMap();
+    const nx=STOPS.find(s=>s[1]>this.km); $('#sc-next').textContent=nx?`До города ${nx[0]} — ${Math.ceil(nx[1]-this.km).toLocaleString('ru-RU')} км. Там всем, кто вязал, подарок.`:'Шарф дотянулся до Владивостока.';
+    const my=App.phone&&App.city(App.phone);
+    $('#sc-state').innerHTML=App.phone?`<div style="font-size:13px;color:var(--mute);margin-top:8px">Ряды — узор твоего номера. Вяжешь за <b style="color:#fff">${my}</b>.</div>`
+      :`<div class="gray">Твои ряды серые и ничьи. <a href="#" onclick="App.needPhone(()=>Scarf.draw(),'Номер покрасит твои ряды, запишет их за твой город и позволит прислать подарок на этапе.');return false">Покрасить номером</a></div>`;
+    const cs=Object.entries(this.cities).sort((a,b)=>b[1]-a[1]); let html=cs.slice(0,6).map(([n,v],k)=>`<div class="kv ${n===my?'me':''}"><span>${k+1}. ${n}</span><span>${v.toFixed(1)} км</span></div>`).join('');
+    if(my){ const idx=cs.findIndex(c=>c[0]===my); if(idx>0){ const gap=cs[idx-1][1]-cs[idx][1]; html+=`<div style="font-size:13px;color:var(--m);margin-top:6px">${my} отстаёт от города ${cs[idx-1][0]} на ${gap.toFixed(1)} км. Довяжи или передай спицы.</div>`; } }
+    $('#sc-cities').innerHTML=html;
     const reached=STOPS.filter(s=>s[1]<=this.km).length; if(reached>this.reached){ this.reached=reached; const st=STOPS[reached-1][0];
-      App.pop(App.phone?`<div style="font-size:40px">🎁</div><h3>Шарф дотянулся до города ${st}</h3><p>Всем, кто вязал, — подарок на номер.</p><p><b style="color:var(--m)">${App.fmt(App.phone)}: +3 ГБ</b></p><p style="font-size:13px">Неабоненту: «подарок ждёт в салоне Т2», код на экране.</p>`
-        :`<div style="font-size:40px">🧶</div><h3>Шарф дотянулся до города ${st}</h3><p>Всем, кто вязал с номером, пришёл подарок. Твои ряды серые — подарку некуда прийти.</p>`); } },
-  find(){ if(!App.phone) return App.needPhone(()=>{ this.draw(); this.find(); },'Твой ряд можно найти только по номеру.');
-    if(!this.mine) return App.toast('Сначала свяжи хотя бы один ряд');
-    App.pop(`<h3>Твой ряд нашёлся</h3><p>Ряд № ${(1284517+this.mine).toLocaleString('ru-RU')} из ${(Math.floor(this.km*100)).toLocaleString('ru-RU')}</p><p>${App.city(App.phone)} · узор номера ${App.fmt(App.phone).slice(-5)}</p>`); }
+      App.pop(App.phone?`<div style="font-size:40px">🎁</div><h3>Шарф дотянулся до города ${st}</h3><p>Всем, кто вязал, — подарок на номер.</p><p><b style="color:var(--m)">${App.fmt(App.phone)}: +3 ГБ</b></p><p style="font-size:13px">Неабоненту — «подарок ждёт в салоне Т2», код на экране.</p>`
+        :`<div style="font-size:40px">🧶</div><h3>Шарф дотянулся до города ${st}</h3><p>Все, кто вязал с номером, получили подарок. Твои ряды серые — подарку некуда прийти.</p>`); } }
 };
 
-/* ---------- 3. Вытяни нитку ---------- */
-const PRED=['Чаще будут звонить те, кого ты ждёшь.','Кто-то давно хочет тебе позвонить. Опереди.','Год будет длинным. Гигабайтов хватит.','В феврале найдётся время на то, на что не было в декабре.','Спам в этом году промахнётся.','Ты наконец доедешь до тех, к кому собирался.','Мама дозвонится с первого раза.'];
-const OFF=['+5 ГБ на месяц','100 минут на звонки близким','подписка на месяц','скидка на аксессуар в салоне','вязаная игрушка с ёлки — за любую покупку'];
-const Thread = {
-  reset(force){ const today=new Date().toDateString(); const last=store.get('t2ng_thread');
-    this.pulled=0; this.done=false; this.drag=false; $('#th-after').style.display='none'; $('#th-hint').style.display='';
-    $('#th-pr').textContent=PRED[Math.floor(Math.random()*PRED.length)]; this.offer=OFF[Math.floor(Math.random()*OFF.length)]; $('#th-of').textContent=this.offer;
-    if(last===today&&!force){ $('#th-hint').textContent='Сегодняшняя нитка уже вытянута. Следующая — завтра.'; } else $('#th-hint').textContent='↓ тяни нитку ↓';
-    const cols=28, W=Math.min(vw(),400); this.cw=W/cols; this.ch=this.cw*0.8; this.R=Math.round(30*(W/400)*1.1)+6; this.R=34;
-    this.panelH=this.R*this.ch; this.W=W; this.H=this.panelH+120;
-    const P=numberPattern('0123456789',cols); this.grid=P.slice(4,4+this.R);
-    $('#th-box').style.width=W+'px'; $('#th-box').style.height=this.H+'px'; $('#th-rev').style.height=this.panelH+'px'; $('#th-rev').style.opacity=0;
-    const s=setupCanvas($('#th-cv'),W,this.H); this.x=s.x; this.dpr=s.dpr; this.tip={x:W*0.62,y:this.panelH+70}; this.draw();
-    if(last===today&&!force){ this.pulled=this.R; this.finish(true); } },
-  draw(){ const x=this.x, vis=Math.max(0,this.R-Math.floor(this.pulled)); x.clearRect(0,0,this.W,this.H);
-    drawGrid(x,this.grid,this.cw,this.ch,this.dpr,vis);
-    if(this.done) return; const ax=this.W*0.62, ay=vis*this.ch-this.ch*0.3, bx=this.tip.x, by=this.tip.y;
-    x.lineCap='round'; x.lineJoin='round'; x.strokeStyle=C.m2; x.lineWidth=5; x.beginPath();
-    const n=40, len=Math.hypot(bx-ax,by-ay)||1, nx=-(by-ay)/len, ny=(bx-ax)/len;
-    for(let i=0;i<=n;i++){ const t=i/n, sag=Math.sin(Math.PI*t)*18*(this.drag?0.2:1), w=Math.sin(t*26)*2.2;
-      const px=ax+(bx-ax)*t+nx*(w+sag*0.3), py=ay+(by-ay)*t+ny*w+sag*0.2; i?x.lineTo(px,py):x.moveTo(px,py); }
-    x.stroke(); x.fillStyle=C.m2; x.beginPath(); x.arc(bx,by,8,0,Math.PI*2); x.fill();
-    $('#th-rev').style.opacity=Math.min(1,this.pulled/6); },
-  pos(e){ const r=$('#th-cv').getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top}; },
-  down(e){ if(this.done) return; const p=this.pos(e); const vis=(this.R-Math.floor(this.pulled))*this.ch;
-    if(Math.hypot(p.x-this.tip.x,p.y-this.tip.y)<70||p.y>vis){ this.drag=true; this.lastY=p.y; this.tip=p; $('#th-cv').setPointerCapture(e.pointerId); this.draw(); } },
-  move(e){ if(!this.drag) return; const p=this.pos(e); const dy=p.y-this.lastY; if(dy>0) this.pulled=Math.min(this.R,this.pulled+dy/this.ch*1.4); this.lastY=p.y;
-    this.tip={x:Math.max(10,Math.min(this.W-10,p.x)),y:Math.max(10,Math.min(this.H-10,p.y))}; this.draw(); if(this.pulled>=this.R-1) this.finish(); },
-  up(){ if(!this.drag) return; this.drag=false; const vis=(this.R-Math.floor(this.pulled))*this.ch; this.tip={x:this.W*0.62,y:Math.min(this.H-20,vis+70)}; this.draw(); },
-  finish(silent){ this.done=true; this.drag=false; this.pulled=this.R; this.draw(); $('#th-rev').style.opacity=1; $('#th-hint').style.display='none'; $('#th-after').style.display='';
-    $('#th-box').style.height=(this.panelH+8)+'px';
-    if(!silent) store.set('t2ng_thread',new Date().toDateString()); },
-  claim(){ App.needPhone(()=>{ App.pop(`<div style="font-size:40px">🧶</div><h3>${this.offer}</h3><p><b>Абоненту Т2</b> — придёт на ${App.fmt(App.phone)} сразу.</p><p><b>Не абоненту</b> — подарок ждёт в салоне Т2. Код: <b style="color:var(--m)">НИТКА-${App.phone.slice(-4)}</b></p><p style="font-size:13px">Так лендинг возвращает человека в салон.</p>`); },'Чтобы забрать то, что вытянул, нужен номер.'); }
-};
-(()=>{ const cv=$('#th-cv'); cv.addEventListener('pointerdown',e=>Thread.down(e)); cv.addEventListener('pointermove',e=>Thread.move(e)); cv.addEventListener('pointerup',()=>Thread.up()); cv.addEventListener('pointercancel',()=>Thread.up()); })();
-
-/* ---------- 4. Вязаная открытка ---------- */
+/* ---------- 3. Открытка-клубок ---------- */
+const OFF=['+5 ГБ на месяц','100 минут на звонки близким','подписка на месяц','скидка на аксессуар в салоне'];
 const Card = {
-  img:null,
-  clearPhoto(){ this.img=null; $('#cd-file').value=''; this.render(); },
-  render(){ const cols=44, P=[C.k,C.m3,C.m,C.p], rows=[];
+  img:null, to:null,
+  open(){ this.showMake(); },
+  back(){ if($('#cd-get').style.display!=='none') return this.showMake(); App.go('menu'); },
+  showMake(){ $('#cd-make').style.display=''; $('#cd-get').style.display='none'; $('#cd-title').textContent='Открытка-клубок'; this.render(true); },
+  clearPhoto(){ this.img=null; $('#cd-file').value=''; this.render(true); },
+  grid(){ const cols=44, P=[C.k,C.m3,C.m,C.p], rows=[];
     const sep=k=>{ for(let j=0;j<2;j++){ const row=[]; for(let c=0;c<cols;c++) row.push((c+j+k)%2?C.w:C.m); rows.push(row); } };
     sep(0);
     if(this.img){ const ph=46, t=document.createElement('canvas'); t.width=cols; t.height=ph; const x=t.getContext('2d');
       const ir=this.img.width/this.img.height, tr=cols/(ph*0.8); let sw,sh,sx,sy;
       if(ir>tr){ sh=this.img.height; sw=sh*tr; sx=(this.img.width-sw)/2; sy=0; } else { sw=this.img.width; sh=sw/tr; sx=0; sy=(this.img.height-sh)/2; }
-      x.drawImage(this.img,sx,sy,sw,sh,0,0,cols,ph); const d=x.getImageData(0,0,cols,ph).data; const L=[];
+      x.drawImage(this.img,sx,sy,sw,sh,0,0,cols,ph); const d=x.getImageData(0,0,cols,ph).data, L=[];
       for(let i=0;i<cols*ph;i++) L.push(0.299*d[i*4]+0.587*d[i*4+1]+0.114*d[i*4+2]);
       const s=[...L].sort((a,b)=>a-b), lo=s[Math.floor(L.length*0.05)], hi=s[Math.floor(L.length*0.95)];
       for(let r=0;r<ph;r++){ const row=[]; for(let c=0;c<cols;c++){ const v=Math.max(0,Math.min(0.999,(L[r*cols+c]-lo)/(hi-lo+1))); row.push(P[Math.floor(v*4)]); } rows.push(row); } }
-    else { const T=MOT[1], S=MOT[0]; for(let r=0;r<30;r++){ const row=[]; for(let c=0;c<cols;c++){ const band=Math.floor(r/10), m=band===1?S:T, y=r%10-1, tc=(c+band*4)%9;
+    else { for(let r=0;r<30;r++){ const row=[]; for(let c=0;c<cols;c++){ const band=Math.floor(r/10), m=band===1?MOT[0]:MOT[1], y=r%10-1, tc=(c+band*4)%9;
         row.push(y>=0&&y<7&&tc<7&&m[y][tc]==='1'?(band===1?C.m:C.w):(band===1?C.w:C.m)); } rows.push(row); } }
     sep(1);
     const txt=($('#cd-txt').value||'С Новым годом').toUpperCase(); let bm;
     for(let n=14;n>=4;n--){ bm=textBitmap(wrapLines(txt,n),12,'900 40px Arial, sans-serif'); if(bm[0].length<=cols-2) break; }
     const pad=Math.max(0,Math.floor((cols-bm[0].length)/2)); rows.push(Array(cols).fill(C.m));
-    for(const s of bm){ const row=[]; for(let c=0;c<cols;c++){ const ch=s[c-pad]; row.push(ch==='1'?C.w:C.m); } rows.push(row); }
-    rows.push(Array(cols).fill(C.m)); sep(0);
-    knitCanvas($('#cd-cv'),rows,Math.min(vw(),380)); }
+    for(const s of bm){ const row=[]; for(let c=0;c<cols;c++) row.push(s[c-pad]==='1'?C.w:C.m); rows.push(row); }
+    rows.push(Array(cols).fill(C.m)); sep(0); return rows; },
+  render(anim){ const g=this.grid(), W=Math.min(vw(),360); return anim?animKnit($('#cd-cv'),g,W,3):knitCanvas($('#cd-cv'),g,W); },
+  send(){ App.needPhone(()=>App.askPhone({title:'Кому открытка',text:'Номер близкого. Ему придёт SMS со ссылкой: «Тебе прислали клубок. Потяни за нитку».',recipient:true},p=>{
+      this.to=p; App.pop(`<div style="font-size:40px">🧶</div><h3>Клубок ушёл на ${App.mask(p)}</h3><p>Открытка смотана в клубок. Получатель потянет за нитку — и она свяжется у него на глазах.</p>`,'Посмотреть, как получит',()=>this.receive()); }),'Открытку подпишем твоим номером, чтобы получатель знал, от кого клубок.'); },
+  receive(){ $('#cd-make').style.display='none'; $('#cd-get').style.display=''; $('#cd-after').style.display='none'; $('#cd-hint').style.display=''; $('#cd-title').textContent='Так получит адресат';
+    $('#cd-from').innerHTML=`Тебе клубок от <b style="color:#fff">${App.phone?App.mask(App.phone):'близкого'}</b>. Потяни за нитку.`; window.scrollTo(0,0);
+    this.g=this.grid(); const cols=this.g[0].length; this.W=Math.min(vw(),340); this.cw=this.W/cols; this.ch=this.cw*0.8; this.cardH=this.g.length*this.ch; this.H=this.cardH+150;
+    const s=setupCanvas($('#cd-pull'),this.W,this.H); this.x=s.x; this.dpr=s.dpr; this.pulled=0; this.drawn=0; this.done=false; this.rot=0; this.tip=null; this.drawPull();
+    const cv=$('#cd-pull'); if(!this.bound){ this.bound=1;
+      cv.addEventListener('pointerdown',e=>{ if(this.done) return; this.drag=true; this.lastY=e.clientY; cv.setPointerCapture(e.pointerId); this.setTip(e); });
+      cv.addEventListener('pointermove',e=>{ if(!this.drag) return; const dy=e.clientY-this.lastY; this.lastY=e.clientY; if(dy>0){ this.pulled=Math.min(this.g.length,this.pulled+dy/this.ch*2.2); this.rot+=dy*0.05; if(Math.random()<0.3) vib(4); } this.setTip(e); this.drawPull(); if(this.pulled>=this.g.length) this.finish(); });
+      const up=()=>{ this.drag=false; this.tip=null; this.drawPull(); }; cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up); } },
+  setTip(e){ const r=$('#cd-pull').getBoundingClientRect(); this.tip={x:Math.max(10,Math.min(this.W-10,e.clientX-r.left)),y:Math.max(this.cardH+10,Math.min(this.H-10,e.clientY-r.top))}; },
+  drawPull(){ const x=this.x, n=Math.floor(this.pulled); x.clearRect(0,this.cardH,this.W,this.H-this.cardH);
+    if(n>this.drawn){ drawRows(x,this.g,this.cw,this.ch,this.dpr,this.drawn,n); this.drawn=n; }
+    if(this.done) return; const bx=this.W*0.5, by=this.cardH+80, br=34;
+    const ny=this.drawn*this.ch, nx=this.W*0.5+Math.sin(this.rot*3)*this.W*0.35;
+    x.clearRect(0,ny,this.W,this.cardH-ny+1);
+    x.fillStyle='rgba(255,255,255,.04)'; x.fillRect(0,ny,this.W,this.cardH-ny);
+    x.strokeStyle=C.m2; x.lineWidth=3; x.lineCap='round'; x.beginPath(); x.moveTo(nx,ny); x.quadraticCurveTo((nx+bx)/2,ny+40,bx-br*0.6,by-br*0.6); x.stroke();
+    x.save(); x.translate(bx,by); x.rotate(this.rot); x.fillStyle=C.m; x.beginPath(); x.arc(0,0,br,0,7); x.fill();
+    x.strokeStyle=C.m3; x.lineWidth=2.2; for(let a=0;a<7;a++){ x.beginPath(); x.ellipse(0,0,br-2,br*(0.25+a*0.11),a*0.9,0,Math.PI*2); x.stroke(); } x.restore();
+    if(this.tip){ x.strokeStyle='#fff'; x.lineWidth=2.5; x.beginPath(); x.moveTo(bx+br*0.7,by+br*0.5); x.quadraticCurveTo(this.tip.x,by+br,this.tip.x,this.tip.y); x.stroke(); x.fillStyle='#fff'; x.beginPath(); x.arc(this.tip.x,this.tip.y,6,0,7); x.fill(); }
+    else { x.strokeStyle='#fff'; x.lineWidth=2.5; x.beginPath(); x.moveTo(bx+br*0.7,by+br*0.5); x.quadraticCurveTo(bx+br*1.4,by+br*1.1,bx+br*1.2,by+br*1.7); x.stroke(); } },
+  finish(){ this.done=true; this.drag=false; drawRows(this.x,this.g,this.cw,this.ch,this.dpr,this.drawn,this.g.length); this.drawn=this.g.length; this.x.clearRect(0,this.cardH,this.W,this.H-this.cardH);
+    setupCanvas($('#cd-pull'),this.W,this.cardH+4); drawRows(this.x=$('#cd-pull').getContext('2d'),this.g,this.cw,this.ch,this.dpr,0,this.g.length);
+    $('#cd-hint').style.display='none'; $('#cd-after').style.display=''; vib([20,40,20]);
+    this.offer=OFF[Math.floor(Math.random()*OFF.length)];
+    $('#cd-gift').innerHTML=`К открытке Т2 добавил подарок: <b>${this.offer}</b>.<br><span style="font-size:13px;color:#555">Абоненту — сразу на номер. Неабоненту — ждёт в салоне Т2.</span>`; },
+  reply(){ App.pop(`<h3>Ответить можно только своей открыткой</h3><p>Получатель вводит свой номер, вяжет ответ — и становится отправителем. Так каждый второй участник приходит по приглашению.</p>`,'Связать ответ',()=>this.showMake()); }
 };
-$('#cd-txt').addEventListener('input',()=>Card.render());
-$('#cd-file').addEventListener('change',e=>{ const f=e.target.files[0]; if(!f) return; const im=new Image(); im.onload=()=>{ Card.img=im; Card.render(); }; im.src=URL.createObjectURL(f); });
+$('#cd-txt').addEventListener('input',()=>{ clearTimeout(Card._t); Card._t=setTimeout(()=>Card.render(false),150); });
+$('#cd-file').addEventListener('change',e=>{ const f=e.target.files[0]; if(!f) return; const im=new Image(); im.onload=()=>{ Card.img=im; Card.render(true); }; im.src=URL.createObjectURL(f); });
 
-/* ---------- 5. Уродливый свитер ---------- */
-function bars(){ const h=[3,5,7,9], out=[]; for(let r=0;r<9;r++){ let s=''; for(let i=0;i<4;i++){ const on=9-r<=h[i]; s+=(on?(i===0?'1':'2'):'0').repeat(3)+(i<3?'0':''); } out.push(s); } return out; }
-function ring(){ const out=[]; for(let r=0;r<9;r++){ let s=''; for(let c=0;c<9;c++){ const dx=c-4, dy=r-4, d=Math.hypot(dx,dy), a=(Math.atan2(dy,dx)+Math.PI*2)%(Math.PI*2); s+=(d>2.6&&d<4.4&&!(a>4.6&&a<5.9))?'1':'0'; } out.push(s); } return out; }
-const PATCHES=[
- {n:'Одна палка',b:bars()},
- {n:'Загрузка',b:ring()},
- {n:'0 ₽',t:['0 ₽']},
- {n:'Мошенник',t:['ВОЗМОЖНО','МОШЕННИК']},
- {n:'Недоступен',t:['АБОНЕНТ','НЕДОСТУПЕН']},
- {n:'Нет сети',t:['НЕТ СЕТИ']},
- {n:'Змейка',b:['111111111100','000000000100','001111111100','001000000000','001111111103']},
- {n:'SMS',b:['11111111111','11000000011','10100000101','10010001001','10001010001','10000100001','11111111111']},
- {n:'Олень',b:MOT[4]},{n:'Ёлка',b:MOT[1]},{n:'Снежинка',b:MOT[0]},{n:'Сердце',b:MOT[2]}
-];
-PATCHES.forEach(p=>{ if(p.t) p.b=textBitmap(p.t,9,'900 31px Arial Narrow, Arial, sans-serif'); });
-const UCOL=[C.w,C.m,C.k,C.y,C.gr,C.r];
-const Ugly = {
-  base:'classic', sel:0, col:0, stamps:[], W:72, H:82,
-  open(){ if(!this.built){ this.built=1;
-      $('#ug-patches').innerHTML=PATCHES.map((p,i)=>`<button class="patch ${i===0?'on':''}" data-i="${i}"><canvas></canvas>${p.n}</button>`).join('');
-      $('#ug-patches').querySelectorAll('.patch').forEach((el,i)=>{ const b=PATCHES[i].b; const g=b.map(s=>[...s].map(ch=>ch==='1'?C.w:ch==='2'?C.g:ch==='3'?C.r:C.m3));
-        const w=Math.min(60,b[0].length*5); knitCanvas(el.querySelector('canvas'),g,w); el.onclick=()=>{ this.sel=i; $('#ug-patches').querySelectorAll('.patch').forEach(x=>x.classList.toggle('on',x===el)); }; });
-      $('#ug-colors').innerHTML=UCOL.map((c,i)=>`<button style="background:${c}" class="${i===0?'on':''}" data-i="${i}"></button>`).join('');
-      $('#ug-colors').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; this.col=+b.dataset.i; $('#ug-colors').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); };
-      $('#ug-base').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; const go=()=>{ this.base=b.dataset.v; $('#ug-base').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); this.render(); };
-        b.dataset.v==='number'?App.needPhone(go,'Основа свитера — узор твоего номера.'):go(); };
-      $('#ug-cv').addEventListener('pointerdown',e=>{ const r=$('#ug-cv').getBoundingClientRect(); const c=Math.floor((e.clientX-r.left)/this.geo.cw), rr=Math.floor((e.clientY-r.top)/this.geo.ch);
-        this.stamps.push({p:this.sel,c,r:rr,col:UCOL[this.col]}); this.render(); });
-      if(!this.stamps.length) this.stamps=[{p:0,c:36,r:36,col:C.w},{p:3,c:36,r:56,col:C.y}]; }
-    this.render(); },
-  baseColor(c,r){ if(this.base==='number'&&App.phone){ const P=numberPattern(App.phone,this.W); return P[(r+6)%P.length][c]; }
-    if(this.base==='t2'){ return Math.floor(r/4)%2?C.k:C.m; }
-    const band=r>=17&&r<=23; if(band){ const y=r-17, tc=c%8, m=MOT[5]; return y<7&&tc<7&&m[y][tc]==='1'?C.w:C.gr; } return r===16||r===24?C.w:C.r; },
-  grid(W,H,stamps){ const g=fillShape('sweater',W,H,(c,r)=>this.baseColor(c,r));
-    for(const s of stamps){ const b=PATCHES[s.p].b, h=b.length, w=b[0].length, r0=s.r-Math.floor(h/2), c0=s.c-Math.floor(w/2);
-      for(let y=0;y<h;y++) for(let x=0;x<w;x++){ const ch=b[y][x]; if(ch==='0') continue; const R=r0+y, Cc=c0+x; if(R<0||R>=H||Cc<0||Cc>=W||!g[R][Cc]) continue;
-        g[R][Cc]=ch==='2'?shade(s.col,-0.55):ch==='3'?C.r:s.col; } }
-    return g; },
-  render(){ this.geo=knitCanvas($('#ug-cv'),this.grid(this.W,this.H,this.stamps),vw()); },
-  undo(){ this.stamps.pop(); this.render(); }, clear(){ this.stamps=[]; this.render(); },
-  submit(){ App.needPhone(()=>{ $('#ug-gal').style.display='';
-      const pre=[{n:'«Абонент недоступен»',v:412,s:[{p:4,c:36,r:40,col:C.w},{p:9,c:15,r:58,col:C.w},{p:9,c:57,r:58,col:C.w}]},
-                 {n:'«Одна палка»',v:388,s:[{p:0,c:36,r:36,col:C.y},{p:1,c:36,r:54,col:C.w}]},
-                 {n:'«Змейка 2007»',v:251,s:[{p:6,c:36,r:38,col:C.y},{p:2,c:36,r:56,col:C.w}]}];
-      const save=this.base; const items=[{n:'Твой свитер',v:1,me:1,s:this.stamps.slice(),b:save}].concat(pre.map((x,i)=>({...x,b:['classic','t2','classic'][i]})));
-      $('#ug-gallery').innerHTML=items.map((it,i)=>`<div class="gal ${it.me?'me':''}"><canvas data-i="${i}"></canvas><div>${it.n}</div><button class="vote" data-i="${i}">♥ ${it.v}</button></div>`).join('');
-      items.forEach((it,i)=>{ this.base=it.b; knitCanvas($('#ug-gallery').querySelector(`canvas[data-i="${i}"]`),this.grid(this.W,this.H,it.s),Math.min(150,(vw()-40)/2)); }); this.base=save;
-      $('#ug-gallery').onclick=e=>{ const b=e.target.closest('.vote'); if(!b) return; if($('#ug-gallery').querySelector('.vote.on')) return App.toast('Один номер — один голос');
-        const it=items[+b.dataset.i]; it.v++; b.textContent='♥ '+it.v; b.classList.add('on'); App.toast('Голос учтён'); };
-      $('#ug-gal').scrollIntoView({behavior:'smooth'}); },'Голосовать и участвовать — по номеру. Один номер, один голос.'); }
-};
-
-App.updChip();
-document.fonts&&document.fonts.ready.then(()=>{ PATCHES.forEach(p=>{ if(p.t) p.b=textBitmap(p.t,9,'900 31px Arial Narrow, Arial, sans-serif'); }); });
-let rt; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{ const on=document.querySelector('.screen.on').id.slice(2); if(on!=='menu'&&on!=='thread') App.go(on); },250); });
+App.updChip(); Menu.draw();
+document.fonts&&document.fonts.ready.then(()=>Menu.draw());
+let rt; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{ if($('#s-menu').classList.contains('on')) Menu.draw(); },250); });
 </script>
 </body>
 </html>
