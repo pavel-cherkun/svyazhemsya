@@ -104,7 +104,7 @@ body.full .wrap{position:relative;z-index:1}
 body.full #s-pattern .bar h2{display:none}
 body.full #s-pattern .bar .back{background:rgba(11,11,12,.8);backdrop-filter:blur(6px)}
 .ptag{background:rgba(11,11,12,.8);backdrop-filter:blur(6px);border-radius:12px;padding:9px 12px;font:600 13px var(--I)}
-.panel{position:fixed;left:0;right:0;bottom:0;z-index:5;background:rgba(11,11,12,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:22px 22px 0 0;padding:12px 16px calc(14px + env(safe-area-inset-bottom));max-width:480px;margin:0 auto}
+.panel{position:fixed;left:0;right:0;bottom:0;z-index:5;height:calc(352px + env(safe-area-inset-bottom));display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;background:rgba(11,11,12,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:22px 22px 0 0;padding:12px 16px calc(14px + env(safe-area-inset-bottom));max-width:480px;margin:0 auto}
 .panel .sub{margin:0 0 4px;text-align:center}
 .panel .keypad{gap:6px;margin-top:8px}
 .panel .keypad button{height:46px}
@@ -117,8 +117,11 @@ body.full #s-pattern .bar .back{background:rgba(11,11,12,.8);backdrop-filter:blu
 /* спицы */
 .modeseg{margin-top:14px}
 #sc-sim{margin:6px auto 0;border-radius:18px;background:radial-gradient(120% 80% at 50% 0%,#1d1d22,#0f0f12)}
-.simhud{display:flex;justify-content:space-between;font-size:13px;color:var(--mute);margin-top:8px}
+.simhud{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:var(--mute);margin-top:8px;white-space:nowrap}
 .simhud b{color:#fff}
+#pt-fix:disabled{opacity:.3}
+.legend2{font-size:12px;color:var(--mute);text-align:center;margin:0 0 10px;line-height:1.5}
+.acts button{padding:16px 6px}
 </style>
 </head>
 <body>
@@ -148,10 +151,11 @@ body.full #s-pattern .bar .back{background:rgba(11,11,12,.8);backdrop-filter:blu
   <p class="sub" id="pt-sub">Набирай номер — он вяжется. Каждая цифра — свой мотив.</p>
   <div class="numdisp" id="pt-num"></div>
   <div class="keypad" id="pt-keys"></div>
-  <button class="btn" id="pt-fix" style="display:none" onclick="Pattern.fix()">Закрепить узор и найти подарок</button>
+  <button class="btn" id="pt-fix" disabled onclick="Pattern.fix()">Закрепить узор и найти подарок</button>
  </div>
  <div id="pt-done" class="panel" style="display:none">
   <p class="sub" id="pt-gift"></p>
+  <p class="legend2" id="pt-leg"></p>
   <div class="acts">
    <button onclick="Pattern.wall()"><b>📱</b>Обои<br>на телефон</button>
    <button onclick="Pattern.compat()"><b>🧶</b>Совместимость<br>номеров</button>
@@ -187,9 +191,9 @@ body.full #s-pattern .bar .back{background:rgba(11,11,12,.8);backdrop-filter:blu
  <button class="hold" id="sc-hold">Держи — вяжется</button>
  </div>
  <div id="sc-knitbox" style="display:none">
-  <p class="sub" style="margin:6px 0 0">Как настоящая лицевая петля: <b style="color:#fff">левая</b> — правая спица входит в петлю и нить обвивает кончик, <b style="color:#fff">правая</b> — протягиваешь петлю, старая соскальзывает. 14 петель — ряд, потом работа переворачивается.</p>
+  <p class="sub" style="margin:6px 0 0">Как настоящая лицевая петля: <b style="color:#fff">левая</b> — правая спица входит в петлю и нить обвивает кончик, <b style="color:#fff">правая</b> — протягиваешь петлю, старая соскальзывает. 10 петель — ряд, потом работа переворачивается. Чем быстрее — тем длиннее серия.</p>
   <canvas id="sc-sim"></canvas>
-  <div class="simhud"><span id="sim-row">Ряд: <b>0/14</b></span><span id="sim-tempo">Темп: <b>0</b> петель/сек</span><span>Рядов: <b id="sim-mine">0</b></span></div>
+  <div class="simhud"><button class="btn ghost small" style="padding:4px 10px;font-size:12px" onclick="Snd.on=!Snd.on; if(!Snd.on&&Snd.ctx){Snd.ctx.close();Snd.ctx=null;} this.textContent=Snd.on?'🔊':'🔈'">🔊</button><span id="sim-row">Ряд: <b>0/14</b></span><span id="sim-tempo">Темп: <b>0</b> петель/сек</span><span>Рядов: <b id="sim-mine">0</b></span></div>
   <div id="sc-state2"></div>
  </div>
  <div class="row"><button class="btn ghost" onclick="Scarf.relay()">Передать спицы близкому</button><button class="btn ghost" onclick="Scarf.boost()">Ускорить (демо)</button></div>
@@ -385,13 +389,15 @@ const Pattern = {
     if(App.phone&&this.done) return this.showDone();
     this.digits=''; this.showType(); },
   // сетка на весь экран; во время набора — на всё, что выше клавиатуры
-  layout(full){ const W=window.innerWidth, Hs=window.innerHeight, top=full?0:0, H=full?Hs:Math.max(200,Hs-$('#pt-type').offsetHeight);
+  panelH(){ const a=$('#pt-type'), b=$('#pt-done'); return Math.max(a.offsetHeight,b.offsetHeight)||352; },
+  // одна и та же сетка в обоих состояниях: узор целиком над панелью, ничего не прыгает
+  layout(){ const W=window.innerWidth, Hs=window.innerHeight, H=Math.max(200,Hs-this.panelH());
     const rows=10*BAND_H+2; this.ch=H/rows; this.cw=this.ch/0.8; this.cols=Math.ceil(W/this.cw)+1; this.W=W; this.H=Hs;
     const s=setupCanvas($('#pt-full'),W,Hs); this.x=s.x; this.dpr=s.dpr; this.x.fillStyle='#0b0b0c'; this.x.fillRect(0,0,W,Hs); },
   drawAll(){ for(let i=0;i<10;i++){ const has=i<this.digits.length; drawRows(this.x,bandRows(i,+this.digits[i]||0,this.cols,!has),this.cw,this.ch,this.dpr,0,BAND_H,i*BAND_H*this.ch); }
     const tail=[]; for(let k=0;k<2;k++){ const row=[]; for(let c=0;c<this.cols;c++) row.push((c+k)%2?C.k:C.m2); tail.push(row); } drawRows(this.x,tail,this.cw,this.ch,this.dpr,0,2,10*BAND_H*this.ch); },
-  showType(){ this.done=0; $('#pt-done').style.display='none'; $('#pt-type').style.display=''; document.querySelectorAll('.glowf').forEach(e=>e.remove()); this.updNum(); this.layout(false); this.drawAll(); },
-  redraw(){ if(this.done){ this.layout(true); this.drawAll(); this.placeGlow(); } else { this.layout(false); this.drawAll(); } },
+  showType(){ this.done=0; $('#pt-done').style.display='none'; $('#pt-type').style.display=''; document.querySelectorAll('.glowf').forEach(e=>e.remove()); this.updNum(); this.layout(); this.drawAll(); },
+  redraw(){ this.layout(); this.drawAll(); if(this.done) this.placeGlow(); },
   band(i,empty){ const rows=bandRows(i,+this.digits[i]||0,this.cols,empty); const oy=i*BAND_H*this.ch;
     if(empty) return drawRows(this.x,rows,this.cw,this.ch,this.dpr,0,BAND_H,oy);
     let r=0; const step=()=>{ drawRows(this.x,rows,this.cw,this.ch,this.dpr,r,r+1,oy); r++; if(r<BAND_H) requestAnimationFrame(step); }; step(); },
@@ -400,13 +406,13 @@ const Pattern = {
     else { if(this.digits.length>=10) return; if(!this.digits.length&&k!=='9') return App.toast('Мобильный номер начинается с 9'); this.digits+=k; this.band(this.digits.length-1,false); vib(10); }
     this.updNum(); },
   updNum(){ const d=this.digits.padEnd(10,'_'); const f=`+7 ${d.slice(0,3)} ${d.slice(3,6)}-${d.slice(6,8)}-${d.slice(8)}`;
-    $('#pt-num').innerHTML=f.replace(/_/g,'<i>_</i>'); const was=$('#pt-fix').style.display; $('#pt-fix').style.display=this.digits.length===10?'':'none';
+    $('#pt-num').innerHTML=f.replace(/_/g,'<i>_</i>'); $('#pt-fix').disabled=this.digits.length!==10;
     const i=this.digits.length-1; $('#pt-sub').textContent=i>=0?`${this.digits[i]} — ${MNAME[+this.digits[i]]}. ${i<9?'Дальше.':'Узор готов.'}`:'Набирай номер — он вяжется. Каждая цифра — свой мотив.';
-    if(was!==$('#pt-fix').style.display&&this.x){ this.layout(false); this.drawAll(); } },
+  },
   fix(){ const p=this.digits; App.askPhone({title:'Закрепить узор',text:'Подтвердим, что номер твой, — и покажем, где в узоре спрятан подарок.',prefill:p},()=>{ this.done=1; this.giftTaken=0; this.showDone(true); }); },
   showDone(){ const p=App.phone; this.digits=p; this.done=1; $('#pt-type').style.display='none'; $('#pt-done').style.display='';
-    this.layout(true); this.drawAll(); this.placeGlow(); this.updGift(); },
-  gb(){ return 1+App.phone.split('').reduce((a,b)=>a+ +b,0)%6; },
+    $('#pt-leg').textContent=p.split('').map(d=>MNAME[+d]).join(' · '); this.layout(); this.drawAll(); this.placeGlow(); this.updGift(); },
+  gb(){ return 1+App.phone.split('').reduce((a,b)=>a+ +b,0)%9; },
   placeGlow(){ document.querySelectorAll('.glowf').forEach(e=>e.remove()); if(this.giftTaken) return; const gb=this.gb(); const gl=document.createElement('div'); gl.className='glowf';
     gl.innerHTML='<span>тут подарок</span>'; Object.assign(gl.style,{top:(gb*BAND_H+2)*this.ch+'px',height:9*this.ch+'px'}); document.body.appendChild(gl);
     gl.onclick=()=>{ const p=App.phone; gl.remove(); this.giftTaken=1; this.updGift(); vib([20,30,20]);
@@ -432,7 +438,6 @@ const Pattern = {
   howOpen(){ const h=$('#pt-how'); h.style.display=h.style.display==='none'?'':'none'; if(h.style.display==='') h.scrollIntoView({behavior:'smooth'}); },
   restart(){ this.done=0; this.giftTaken=0; this.digits=''; this.showType(); }
 };
-$('#pt-type') && new ResizeObserver(()=>{ if($('#s-pattern').classList.contains('on')&&!Pattern.done&&Pattern.x){ clearTimeout(Pattern._ro); Pattern._ro=setTimeout(()=>{ Pattern.layout(false); Pattern.drawAll(); },60); } }).observe($('#pt-type'));
 
 /* ---------- 2. Общий шарф ---------- */
 const STOPS=[['Калининград',0,.04,.42],['Москва',1250,.2,.5],['Казань',2050,.31,.56],['Екатеринбург',2950,.42,.5],['Новосибирск',4550,.6,.64],['Иркутск',6400,.75,.7],['Владивосток',10400,.95,.82]];
@@ -488,20 +493,29 @@ const Scarf = {
    Левая: правая спица входит в первую петлю на левой спице (спереди назад), нить обвивает кончик против часовой.
    Правая: новая петля протягивается, старая соскальзывает с левой спицы. Ряд кончился — работа переворачивается.
    Нить: клубок → указательный палец → рабочая петля. Цепочки точек с нерастяжимыми связями (Verlet). */
+const Snd = { ctx:null, on:true,
+  init(){ if(this.ctx||!this.on) return; try{ this.ctx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ this.on=false; } },
+  click(f=1800,v=0.25,d=0.05){ if(!this.ctx) return; const c=this.ctx, t=c.currentTime, o=c.createOscillator(), g=c.createGain(), bf=c.createBiquadFilter();
+    o.type='triangle'; o.frequency.setValueAtTime(f,t); o.frequency.exponentialRampToValueAtTime(f*0.5,t+d); bf.type='bandpass'; bf.frequency.value=f; bf.Q.value=3;
+    g.gain.setValueAtTime(v,t); g.gain.exponentialRampToValueAtTime(0.001,t+d); o.connect(bf).connect(g).connect(c.destination); o.start(t); o.stop(t+d+0.02); },
+  swish(v=0.12,d=0.18){ if(!this.ctx) return; const c=this.ctx, t=c.currentTime, n=Math.floor(c.sampleRate*d), b=c.createBuffer(1,n,c.sampleRate), ch=b.getChannelData(0);
+    for(let i=0;i<n;i++) ch[i]=(Math.random()*2-1)*Math.sin(Math.PI*i/n); const src=c.createBufferSource(), f=c.createBiquadFilter(), g=c.createGain();
+    src.buffer=b; f.type='bandpass'; f.frequency.setValueAtTime(900,t); f.frequency.linearRampToValueAtTime(2400,t+d); g.gain.value=v; src.connect(f).connect(g).connect(c.destination); src.start(t); },
+  pop(){ this.click(900,0.18,0.08); setTimeout(()=>this.click(1300,0.12,0.05),40); } };
 const ease = t => 1-Math.pow(1-t,3);
 const easeIO = t => t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const Sim = {
   run:false,
   start(){ const cv=$('#sc-sim');
     if(!this.bound){ this.bound=1;
-      cv.addEventListener('pointerdown',e=>{ e.preventDefault(); const p=this.pos(e); this.drag=p; cv.setPointerCapture(e.pointerId); this.press(p.x<this.W/2?'L':'R'); });
+      cv.addEventListener('pointerdown',e=>{ e.preventDefault(); Snd.init(); const p=this.pos(e); this.drag=p; cv.setPointerCapture(e.pointerId); this.ripples.push({x:p.x,y:p.y,t:0,ok:(p.x<this.W/2?'L':'R')===this.expect}); this.press(p.x<this.W/2?'L':'R'); });
       cv.addEventListener('pointermove',e=>{ if(this.drag) this.drag=this.pos(e); });
       const up=()=>{ this.drag=null; }; cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up); }
     const W=vw(), H=Math.round(Math.min(500,Math.max(390,window.innerHeight*0.6))); this.W=W; this.H=H;
     const s=setupCanvas(cv,W,H); this.x=s.x; this.dpr=s.dpr;
-    this.cols=14; this.cw=(W*0.84)/this.cols; this.ch=this.cw*0.8; this.x0=W*0.08; this.ny=H*0.24;
+    this.cols=10; this.cw=(W*0.84)/this.cols; this.ch=this.cw*0.8; this.x0=W*0.08; this.ny=H*0.24;
     if(!this.row){ this.k=this.cols; this.row=Array(this.cols).fill(null); this.prev=[0,1,2].map(r=>Array.from({length:this.cols},(_,c)=>(c+r)%2?C.m3:shade(C.m3,-0.12)));
-      this.expect='L'; this.anim=null; this.queue=null; this.times=[]; this.pops=[]; this.drops=[]; this.fx=[]; this.shake=0; }
+      this.expect='L'; this.anim=null; this.queue=null; this.times=[]; this.pops=[]; this.drops=[]; this.fx=[]; this.shake=0; this.streak=0; this.lastSt=0; this.ripples=[]; }
     this.rt=this.rtRest(); this.wrapA=null; this.wrapPhase=0;
     this.ball={x:W*0.88,y:H-44,r:22,rot:0,vx:0,home:W*0.88};
     this.r1=this.mkRope(this.bt(),this.finger(),26,1.15); this.r2=this.mkRope(this.finger(),this.anchor(),9,1.02);
@@ -515,7 +529,7 @@ const Sim = {
   lyAt(x){ const a=this.lbutt(), b=this.ltip(); return a.y+(b.y-a.y)*(x-a.x)/(b.x-a.x); },
   rtRest(k=this.k){ return {x:this.gapX(k)+2,y:this.ny+12}; },
   rtIn(){ return {x:this.cx(this.k-1)-4,y:this.ny-12}; },
-  rbutt(){ return {x:this.W+34,y:this.ny-50}; },
+  rbutt(){ const A=this.anim, lift=A&&A.name==='pull'?Math.sin(Math.PI*Math.min(1,A.t/A.dur))*26:(A&&A.name==='in'?-Math.sin(Math.PI*Math.min(1,A.t/A.dur))*10:0); return {x:this.W+34,y:this.ny-50-lift}; },
   ryAt(x){ const a=this.rt, b=this.rbutt(); return a.y+(b.y-a.y)*(x-a.x)/(b.x-a.x); },
   finger(){ const t=this.wrapPhase*Math.PI*2; return {x:this.W*0.9+Math.sin(t)*10,y:this.ny-72-Math.cos(t)*6+6}; },
   anchor(){ if(this.wrapA) return this.wrapA; const x=this.k<this.cols?this.cx(this.k):this.rt.x+8; return {x,y:this.ryAt(x)+5}; },
@@ -524,7 +538,7 @@ const Sim = {
 
   /* нить */
   mkRope(a,b,n,slack){ const pts=[]; for(let i=0;i<=n;i++){ const t=i/n, x=a.x+(b.x-a.x)*t, y=a.y+(b.y-a.y)*t+Math.sin(Math.PI*t)*20; pts.push({x,y,px:x,py:y}); } return {pts,n,slack,L:Math.hypot(b.x-a.x,b.y-a.y)*slack/n}; },
-  stepRope(R,a,b,g,iters,bend){ const P=R.pts, n=R.n; R.L+=(Math.max(2,Math.hypot(b.x-a.x,b.y-a.y)*R.slack/n)-R.L)*0.1;
+  stepRope(R,a,b,g,iters,bend){ const P=R.pts, n=R.n, A=this.anim, tight=A&&A.name==='pull'?(R===this.r2?0.93:0.97):1; R.L+=(Math.max(2,Math.hypot(b.x-a.x,b.y-a.y)*R.slack*tight/n)-R.L)*(tight<1?0.35:0.1);
     for(let i=1;i<n;i++){ const p=P[i], vx=(p.x-p.px)*0.976, vy=(p.y-p.py)*0.976; p.px=p.x; p.py=p.y; p.x+=vx; p.y+=vy+g; }
     if(this.drag&&R===this.r1&&!this.anim){ let bi=-1,bd=1e9; for(let i=2;i<n-1;i++){ const d=Math.hypot(P[i].x-this.drag.x,P[i].y-this.drag.y); if(d<bd){bd=d;bi=i;} } if(bd<70){ P[bi].x+=(this.drag.x-P[bi].x)*0.3; P[bi].y+=(this.drag.y-P[bi].y)*0.3; } }
     for(let it=0;it<iters;it++){ P[0].x=a.x; P[0].y=a.y; P[n].x=b.x; P[n].y=b.y;
@@ -546,24 +560,26 @@ const Sim = {
   update(dt){ const A=this.anim; this.wrapPhase=0;
     if(A){ A.t+=dt; const t=Math.min(1,A.t/A.dur);
       if(A.name==='in'){ const e=ease(t); this.rt={x:A.from.x+(A.to.x-A.from.x)*e,y:A.from.y+(A.to.y-A.from.y)*e};
-        if(t>=1){ this.spark(this.rt); this.anim={name:'wrap',t:0,dur:240*this.speed()}; } }
+        if(t>=1){ this.spark(this.rt); Snd.click(2200,0.22,0.04); this.anim={name:'wrap',t:0,dur:240*this.speed()}; Snd.swish(0.1,0.24*this.speed()); } }
       else if(A.name==='wrap'){ const e=easeIO(t), th=-Math.PI/2-e*Math.PI*2; this.wrapPhase=e;
         this.wrapA={x:this.rt.x+Math.cos(th)*10,y:this.rt.y+Math.sin(th)*10};
         if(t>=1){ this.wrapA=null; this.anim=null; this.expect='R'; this.kick(this.r1,1.3); this.next(); } }
       else if(A.name==='pull'){ const e=ease(t); this.rt={x:A.from.x+(A.to.x-A.from.x)*e,y:A.from.y+(A.to.y-A.from.y)*e};
         if(t>=1){ const j=this.k-1, lt=this.ltip(); this.drops.push({x:this.cx(j),y:this.lyAt(this.cx(j)),col:(this.prev[0]||[])[j]||C.m3,t:0});
           this.k=j; this.row[j]=this.color(j); this.pops.push({c:j,t:0}); this.fx.push({txt:'+1',x:this.cx(j),y:this.ny+30,t:0});
-          this.times.push(performance.now()); this.kick(this.r1,2.6); this.kick(this.r2,1.5); this.ball.vx=Math.max(-4,this.ball.vx-2.2); vib(12);
+          Snd.pop(); const now=performance.now(); this.streak=now-this.lastSt<800?this.streak+1:1; this.lastSt=now; if(this.streak>1) this.fx.push({txt:'серия ×'+this.streak,x:this.W*0.5,y:this.ny-34,t:0,big:this.streak>=5}); if(this.streak%10===0) this.confetti(true);
+          this.times.push(now); this.kick(this.r1,2.6); this.kick(this.r2,1.5); this.ball.vx=Math.max(-4,this.ball.vx-2.2); vib(12);
           this.rt=this.rtRest(); this.expect='L'; this.hud();
           if(this.k===0){ this.anim={name:'flip',t:0,dur:460}; vib([10,40,10]); } else { this.anim=null; this.next(); } } }
-      else if(A.name==='flip'){ if(t>=1){ this.prev=[this.row].concat(this.prev).slice(0,40).map(r=>r.slice().reverse());
+      else if(A.name==='flip'){ if(!A.snd){ A.snd=1; Snd.swish(0.14,0.4); } if(t>=1){ Snd.click(600,0.3,0.12); this.prev=[this.row].concat(this.prev).slice(0,40).map(r=>r.slice().reverse());
           this.row=Array(this.cols).fill(null); Scarf.knit(); this.k=this.cols; this.rt=this.rtRest(); this.anim=null; this.shake=5; this.confetti(); this.hud(); this.next(); } } }
     const B=this.ball; B.vx+=(B.home-B.x)*0.025; B.vx*=0.9; B.x+=B.vx; B.rot+=B.vx*0.06;
     this.pops.forEach(p=>p.t+=dt); this.pops=this.pops.filter(p=>p.t<260);
     this.drops.forEach(p=>p.t+=dt); this.drops=this.drops.filter(p=>p.t<260);
+    this.ripples.forEach(r=>r.t+=dt); this.ripples=this.ripples.filter(r=>r.t<380);
     this.fx.forEach(p=>{ p.t+=dt; if(p.vx!=null){ p.x+=p.vx; p.y+=p.vy; p.vy+=0.25; } else p.y-=0.5; }); this.fx=this.fx.filter(p=>p.t<(p.vx!=null?1200:600)); },
   spark(p){ for(let i=0;i<6;i++){ const a=Math.random()*Math.PI*2; this.fx.push({x:p.x,y:p.y,vx:Math.cos(a)*2,vy:Math.sin(a)*2-1,t:0,col:'#fff',r:1.6}); } },
-  confetti(){ for(let i=0;i<26;i++){ this.fx.push({x:this.W/2+(Math.random()-.5)*this.W*0.6,y:this.ny+20,vx:(Math.random()-.5)*5,vy:-Math.random()*5-1,t:0,col:[C.m,C.m2,C.w,C.p][i%4],r:2.5}); }
+  confetti(small){ if(small){ for(let i=0;i<14;i++){ this.fx.push({x:this.W/2,y:this.ny,vx:(Math.random()-.5)*6,vy:-Math.random()*4-1,t:0,col:[C.y,C.w][i%2],r:2}); } return; } for(let i=0;i<26;i++){ this.fx.push({x:this.W/2+(Math.random()-.5)*this.W*0.6,y:this.ny+20,vx:(Math.random()-.5)*5,vy:-Math.random()*5-1,t:0,col:[C.m,C.m2,C.w,C.p][i%4],r:2.5}); }
     this.fx.push({txt:'Ряд! +1 к шарфу',x:this.W/2,y:this.ny+60,t:0,big:1}); },
   hud(){ $('#sim-row').innerHTML=`Ряд: <b>${this.cols-this.k}/${this.cols}</b>`;
     const now=performance.now(); const n=this.times.filter(t=>now-t<3000).length; $('#sim-tempo').innerHTML=`Темп: <b>${(n/3).toFixed(1).replace('.',',')}</b> петель/сек`; },
@@ -608,8 +624,9 @@ const Sim = {
     const B=this.ball; c.save(); c.translate(B.x,B.y); c.rotate(B.rot); c.fillStyle=C.m; c.beginPath(); c.arc(0,0,B.r,0,7); c.fill();
     c.strokeStyle=C.m3; c.lineWidth=2; for(let k=0;k<7;k++){ c.beginPath(); c.ellipse(0,0,B.r-2,B.r*(0.22+k*0.11),k*0.9,0,Math.PI*2); c.stroke(); }
     c.strokeStyle='rgba(255,255,255,.35)'; c.lineWidth=1.5; c.beginPath(); c.arc(-B.r*0.3,-B.r*0.3,B.r*0.45,3.6,4.8); c.stroke(); c.restore();
-    this.fx.forEach(p=>{ if(p.txt){ const t=p.t/600; c.globalAlpha=1-t; c.fillStyle='#fff'; c.font=(p.big?'800 18px ':'700 13px ')+'Unbounded, Arial Black'; c.textAlign='center'; c.fillText(p.txt,p.x,p.y); c.globalAlpha=1; }
+    this.fx.forEach(p=>{ if(p.txt){ const t=p.t/600; c.globalAlpha=Math.max(0,1-t*t); c.fillStyle=p.txt.startsWith('серия')?C.m2:'#fff'; c.font=(p.big?'800 18px ':'700 13px ')+'Unbounded, Arial Black'; c.textAlign='center'; c.fillText(p.txt,p.x,p.y); c.globalAlpha=1; }
       else { c.globalAlpha=Math.max(0,1-p.t/1200); c.fillStyle=p.col; c.beginPath(); c.arc(p.x,p.y,p.r,0,7); c.fill(); c.globalAlpha=1; } });
+    this.ripples.forEach(r=>{ const t=r.t/380; c.strokeStyle=r.ok?`rgba(255,122,184,${1-t})`:`rgba(255,255,255,${(1-t)*0.6})`; c.lineWidth=3*(1-t)+1; c.beginPath(); c.arc(r.x,r.y,10+t*46,0,7); c.stroke(); });
     c.restore();
     // подписи спиц
     c.font='700 12px Inter, Arial'; c.textAlign='center'; const on=!this.anim;
